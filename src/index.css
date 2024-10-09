@@ -2,25 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-  --background: #ffffff;
-  --surface: #f8f9fa;
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --accent: #28a745;
-  --error: #dc3545;
+  --background-light: #f9fafb;
+  --surface-light: #f1f5f9;
+  --text-primary-light: #111827;
+  --text-secondary-light: #6b7280;
+  --primary-light: #3b82f6;
+  --secondary-light: #64748b;
+  --accent-light: #22c55e;
+  --error-light: #ef4444;
+
+  --background-dark: #0f172a;
+  --surface-dark: #1e293b;
+  --text-primary-dark: #f8fafc;
+  --text-secondary-dark: #94a3b8;
+  --primary-dark: #3b82f6;
+  --secondary-dark: #64748b;
+  --accent-dark: #22c55e;
+  --error-dark: #ef4444;
+}
+
+.light {
+  --background: var(--background-light);
+  --surface: var(--surface-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --primary: var(--primary-light);
+  --secondary: var(--secondary-light);
+  --accent: var(--accent-light);
+  --error: var(--error-light);
 }
 
 .dark {
-  --background: #121212;
-  --surface: #1e1e1e;
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --accent: #28a745;
-  --error: #dc3545;
+  --background: var(--background-dark);
+  --surface: var(--surface-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --primary: var(--primary-dark);
+  --secondary: var(--secondary-dark);
+  --accent: var(--accent-dark);
+  --error: var(--error-dark);
+}
+
+
+body {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }

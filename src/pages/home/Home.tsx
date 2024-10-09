@@ -1,20 +1,17 @@
-const Home = () => {
-    return (
-        <>
-            <section className="h-screen bg-background text-textPrimary flex items-center justify-center">
-                <div className="text-center">
-                    <h1 className="text-5xl font-bold">Hi, I'm Naveed Ahmed</h1>
-                    <p className="mt-4 text-xl text-textSecondary">A Software Engineer specializing in building professional applications</p>
-                    <a href="/projects" className="mt-6 inline-block bg-primary text-white px-4 py-2 rounded hover:bg-accent">
-                        See My Work
-                    </a>
-                </div>
-            </section>
+import AboutSection from "../about/aboutSection";
+import ContactSection from "../contact/ContactSection";
+import ProjectsSection from "../project/projectSection";
+import HomeSection from "./HomeSection";
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ex laboriosam adipisci corrupti, eligendi quidem delectus. Harum molestiae aliquam minima pariatur, officia nobis nam accusamus deserunt unde dignissimos vel ducimus laudantium quibusdam odio incidunt rem! Aliquid nisi consequatur at ab eveniet fuga quia rerum accusamus. Aliquid eos enim pariatur voluptatem dolorum. Inventore ullam consequatur reprehenderit asperiores quis fugit nulla. Vel iste velit rem vitae sequi voluptatum animi recusandae alias! Odit molestias alias, dolor expedita eaque fugit a quasi possimus sunt iusto eum nulla dolores qui consequatur, beatae autem adipisci! Libero tenetur, esse eius magnam vel quisquam pariatur aspernatur eaque incidunt, amet minima. Reiciendis minima, sit nostrum labore facere corrupti numquam tenetur ea maxime officia dolor debitis, quas obcaecati laudantium dolore deserunt culpa inventore perspiciatis, eligendi ut eos quidem? Inventore molestias voluptatem suscipit. Doloribus soluta repudiandae perspiciatis vero excepturi exercitationem sapiente iste cum aliquid ut et quos aspernatur, quod magnam assumenda laboriosam totam. Officia eveniet eius quos expedita sequi id sint impedit culpa recusandae a reprehenderit obcaecati quod exercitationem, molestiae magnam ipsum at, nemo voluptatem accusamus, mollitia voluptate est tenetur ullam dignissimos! Molestiae ullam assumenda quis unde explicabo ex. Suscipit adipisci minus officiis maxime ducimus sint enim, nostrum quod! Reprehenderit pariatur ea, temporibus cupiditate repellat provident iste aspernatur saepe minus rerum odio fuga dolorem? Natus fuga qui molestias quisquam voluptatum facilis incidunt soluta saepe ut distinctio tempora dolorum architecto numquam, maiores totam perferendis repudiandae adipisci obcaecati maxime sint porro eligendi perspiciatis? Consequuntur voluptas quibusdam ipsa, nobis odio tempore illo commodi quasi corporis officiis aut culpa vel minus delectus magni atque laboriosam fugiat deserunt unde. Officiis sint dicta natus reprehenderit ratione quia voluptatibus repudiandae, odio corporis delectus, adipisci amet veniam quod nemo iure quos repellat eveniet id qui, ea sunt soluta mollitia nostrum. Praesentium omnis incidunt inventore id doloribus ut! Quaerat iure maiores, deserunt, ullam modi veniam vero commodi, eaque libero officiis delectus voluptatum. Nobis animi velit dicta! Assumenda ad atque magni, praesentium ex et obcaecati? Iste, ab atque! Alias quibusdam est distinctio voluptatem fugiat. Doloribus non nihil velit et molestias quibusdam rem, autem explicabo ullam ducimus est vero impedit. Dicta, autem dolore iste distinctio molestias deserunt, sed error consequuntur sit, reprehenderit dolores! Similique cupiditate recusandae nam a odio odit voluptas explicabo ratione perferendis non iusto temporibus, laudantium rerum eaque commodi asperiores dolorem doloremque nisi error ipsam quod obcaecati repellat sed! Suscipit reprehenderit nobis accusamus amet quisquam? Voluptatem incidunt quod inventore magni earum cumque iure ipsam! Quas veritatis quo quae cupiditate vel, tenetur omnis corporis tempore voluptatem fuga, ullam sint debitis, excepturi quisquam. Libero molestiae, nulla sit tempora similique dignissimos commodi pariatur laudantium? Voluptatum pariatur architecto exercitationem, est ipsum aperiam? Natus laborum ratione modi exercitationem, vel aut voluptatibus neque aliquid possimus! Quaerat maiores maxime quisquam recusandae dicta quibusdam asperiores, animi facilis, expedita id qui totam earum optio corrupti incidunt! Modi, optio reprehenderit ipsa cumque exercitationem atque maiores repellat voluptate accusamus eum odio suscipit. Dolores, nulla maiores. Quos odio nihil ad provident quaerat velit, voluptatum, animi, hic magnam debitis incidunt voluptate eius. Distinctio?</p>
-        </>
+function Home() {
+    return (
+        <div className="h-full bg-background text-textPrimary p-2">
+            <HomeSection />
+            <AboutSection />
+            <ProjectsSection />
+            <ContactSection />
+        </div>
     );
 }
-
 
 export default Home;
