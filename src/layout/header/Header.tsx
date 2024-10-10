@@ -46,8 +46,12 @@ export default function Header() {
         }
     }, [isMenuOpen]);
 
+    const onLinkClick = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
-        <>
+        <div className='relative'>
             <header
                 className={`fixed top-0 w-full z-50 p-4 transition-all duration-500 ease-in-out ${scrolled ? 'bg-surface/80 shadow-lg backdrop-blur-lg' : 'bg-transparent'}`}
             >
@@ -101,12 +105,12 @@ export default function Header() {
                     </button>
 
                     {/* Show Navigation Links After Background Animation */}
-                    {showLinks && <NavigationMenu isMobile />}
+                    {showLinks && <NavigationMenu isMobile onLinkClick={onLinkClick} />}
                 </div>
             </motion.div>
 
             <Outlet />
             <Footer />
-        </>
+        </div>
     );
 }
