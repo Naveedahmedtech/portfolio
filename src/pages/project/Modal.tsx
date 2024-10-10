@@ -31,7 +31,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
                 >
                     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-md"></div>
                     <motion.div
-                        className="bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-lg relative"
+                        className="bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-lg relative mx-5"
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
