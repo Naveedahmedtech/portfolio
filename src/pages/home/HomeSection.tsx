@@ -59,14 +59,18 @@ function HomeSection() {
                         whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        Explore My Work
+                        <a href="#projects">
+                            Explore My Work
+                        </a>
                     </motion.button>
                     <motion.button
                         className="bg-green-600 hover:bg-green-800 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold shadow-lg transform transition-all duration-100 ease-in-out focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-green-800 "
                         whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        Let’s Collaborate
+                        <a href="#contact">
+                            Let’s Collaborate
+                        </a>
                     </motion.button>
                 </motion.div>
                 <motion.div
