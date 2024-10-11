@@ -25,7 +25,7 @@ function HomeSection() {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             variants={containerVariants}
-            className="relative flex items-center justify-center h-screen px-4 md:px-8 mt-6 md:mt-0"
+            className="relative flex items-center justify-center h-screen px-4 md:px-8"
             id="home"
         >
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900 opacity-50 blur-2xl"></div>
