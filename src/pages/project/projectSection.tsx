@@ -56,13 +56,13 @@ const ProjectsSection = () => {
                     variants={childVariants}
                 >
                     <motion.h2
-                        className="text-5xl md:text-6xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+                        className="text-4xl md:text-6xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
                         variants={childVariants}
                     >
                         Projects
                     </motion.h2>
                     <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
+                        className="grid grid-cols-1  lg:grid-cols-3 gap-12"
                         variants={childVariants}
                     >
                         {projects.map((project, index) => (
@@ -78,7 +78,7 @@ const ProjectsSection = () => {
                                 animate={inView ? 'visible' : 'hidden'}
                             >
                                 <motion.div
-                                    className="w-full h-52 bg-cover bg-center mb-6"
+                                    className="w-full h-52 bg-cover bg-center mb-2 lg:mb-6"
                                     style={{
                                         backgroundImage: `url(${project.image})`,
                                         height: "auto",
@@ -86,14 +86,9 @@ const ProjectsSection = () => {
                                     }}
                                 ></motion.div>
                                 <div className="px-6 py-4">
-                                    <h3 className="text-3xl font-bold mb-4">{project.name}</h3>
-                                    {/* <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
-                                        {project.description.length > 80
-                                            ? `${project.description.substring(0, 80)}...`
-                                            : project.description}
-                                    </p> */}
+                                    <h3 className="text-2xl md:text-3xl font-bold mb-2 lg:mb-6">{project.name}</h3>
                                     <div
-                                        className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed"
+                                        className="text-sm md:text-lg text-gray-300 mb-2 lg:mb-6 leading-relaxed"
                                         dangerouslySetInnerHTML={{
                                             __html:
                                                 project.description.length > 150

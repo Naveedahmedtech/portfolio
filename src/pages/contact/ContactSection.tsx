@@ -25,14 +25,14 @@ function ContactSection() {
             animate={inView ? 'visible' : 'hidden'}
             variants={containerVariants}
             className="relative flex flex-col items-center justify-center min-h-screen px-4 md:px-8"
-            id='contact'
+            id="contact"
         >
             <motion.div
                 className="relative max-w-4xl w-full text-white p-8 md:p-16 text-center"
                 variants={childVariants}
             >
                 <motion.h2
-                    className="text-5xl md:text-6xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+                    className="text-4xl md:text-6xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
                     variants={childVariants}
                 >
                     Contact Me
@@ -44,7 +44,7 @@ function ContactSection() {
                     If you'd like to get in touch, feel free to reach out via any of the methods below.
                 </motion.p>
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12"
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-12"
                     variants={childVariants}
                 >
                     <motion.div
@@ -53,8 +53,10 @@ function ContactSection() {
                     >
                         <FaEnvelope className="text-5xl text-pink-400 mb-4" />
                         <h3 className="text-2xl font-bold mb-2">Email</h3>
-                        <p className="text-base text-gray-300">
-                            <a href="mailto:technaveedahmed@gmail.com" className="hover:underline">technaveedahmed@gmail.com</a>
+                        <p className="text-sm sm:text-base text-gray-300 break-words max-w-xs">
+                            <a href="mailto:technaveedahmed@gmail.com" className="hover:underline">
+                                technaveedahmed@gmail.com
+                            </a>
                         </p>
                     </motion.div>
                     <motion.div
@@ -64,7 +66,9 @@ function ContactSection() {
                         <FaPhone className="text-5xl text-purple-400 mb-4" />
                         <h3 className="text-2xl font-bold mb-2">Phone</h3>
                         <p className="text-base text-gray-300">
-                            <a href="tel:+1234567890" className="hover:underline">+92 310 5557923</a>
+                            <a href="tel:+923105557923" className="hover:underline">
+                                +92 310 5557923
+                            </a>
                         </p>
                     </motion.div>
                     <motion.div
@@ -80,6 +84,7 @@ function ContactSection() {
                 </motion.div>
             </motion.div>
         </motion.div>
+
     );
 }
 
