@@ -24,7 +24,7 @@ function AboutSection() {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             variants={containerVariants}
-            className="relative flex flex-col items-center justify-center min-h-screen px-4 md:px-8 mt-10"
+            className="relative flex flex-col items-center justify-center min-h-screen px-4 md:px-8 mt-0 md:mt-10"
             id="about"
         >
             <motion.div
