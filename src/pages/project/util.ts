@@ -21,6 +21,7 @@ export const projects = [
       </ul>
     `,
     image: chilloutProject,
+    codeUrl: "https://github.com/Naveedahmedtech/chill_out_client.git",
     demoUrl: "https://chillout-naveed.netlify.app/",
   },
   {
@@ -47,13 +48,13 @@ export const projects = [
       <h1 class="text-lg font-semibold">Blog Project</h1> is a comprehensive platform for readers and writers to explore blogs and share insights. Designed to cater to avid readers and writers alike.
       <h3 class="text-xl font-bold mt-4">Features:</h3>
       <ul class="list-disc pl-5 mt-2">
-        <li>Built using React, Node.js, Express.js, and MongoDB for seamless data management.</li>
+        <li>Built using React, Node.js, Nest.js, and MongoDB for seamless data management.</li>
         <li>Advanced blog search and filtering capabilities for easier navigation.</li>
         <li>Detailed author information for better connection between authors and readers.</li>
       </ul>
     `,
     image: blogProject,
     demoUrl: "https://naveed-blogs.netlify.app/",
-    codeUrl: "https://github.com/Naveedahmedtech/movie-app",
+    codeUrl: "https://github.com/Naveedahmedtech/blog-1-server.git",
   },
 ];
