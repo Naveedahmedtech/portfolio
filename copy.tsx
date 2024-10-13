@@ -1,47 +1,50 @@
-import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
-import Modal from './Modal';
-import { projects } from './util';
+// import { useInView } from 'react-intersection-observer';
+// import { motion } from 'framer-motion';
+// import { useState } from 'react';
+// import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+// import Modal from './Modal';
+// import { projects } from './util';
+import React from "react";
 
-interface Project {
-    name: string;
-    description: string;
-    image: string;
-    codeUrl?: string;
-    demoUrl?: string;
-}
+
+
+// interface Project {
+//     name: string;
+//     description: string;
+//     image: string;
+//     codeUrl?: string;
+//     demoUrl?: string;
+// }
 
 const ProjectsSection = () => {
-    const { ref, inView } = useInView({
-        threshold: 0.1,
-        triggerOnce: true,
-    });
+    // const { ref, inView } = useInView({
+    //     threshold: 0.1,
+    //     triggerOnce: true,
+    // });
 
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    // const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-    const handleReadMore = (project: Project) => {
-        setSelectedProject(project);
-    };
+    // const handleReadMore = (project: Project) => {
+    //     setSelectedProject(project);
+    // };
 
-    const handleCloseModal = () => {
-        setSelectedProject(null);
-    };
+    // const handleCloseModal = () => {
+    //     setSelectedProject(null);
+    // };
 
-    const containerVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3 } },
-    };
+    // const containerVariants = {
+    //     hidden: { opacity: 0, y: 50 },
+    //     visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3 } },
+    // };
 
-    const childVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-    };
+    // const childVariants = {
+    //     hidden: { opacity: 0, y: 20 },
+    //     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+    // };
 
     return (
         <div>
-            <motion.div
+             {/* <motion.div
                 ref={ref}
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
@@ -60,7 +63,7 @@ const ProjectsSection = () => {
                         Projects
                     </motion.h2>
                     <motion.div
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-12"  // Changed from 3 to 2 columns to make them wider
+                        className="grid grid-cols-1  lg:grid-cols-3 gap-12"
                         variants={childVariants}
                     >
                         {projects.map((project, index) => (
@@ -74,20 +77,19 @@ const ProjectsSection = () => {
                                     transition: { duration: 0.5, ease: "easeInOut" },
                                 }}
                                 animate={inView ? 'visible' : 'hidden'}
-                                style={{ width: '100%', maxWidth: '500px', height: 'auto' }}  // Making the card wider
                             >
                                 <motion.div
-                                    className="w-full bg-cover bg-center mb-2 "
+                                    className="w-full h-52 bg-cover bg-center mb-2 "
                                     style={{
                                         backgroundImage: `url(${project.image})`,
-                                        aspectRatio: '16/9',  // Using a 16:9 aspect ratio to make it landscape
-                                        height: '300px',      // Fixed height for landscape look
+                                        height: "auto",
+                                        aspectRatio: '16/9',
                                     }}
                                 ></motion.div>
                                 <div className="px-6 py-4">
-                                    <h3 className="text-2xl md:text-3xl font-bold  ">{project.name}</h3>
+                                    <h3 className="text-2xl md:text-3xl font-bold mb-2 ">{project.name}</h3>
                                     <div
-                                        className="text-sm md:text-lg text-gray-300  leading-relaxed"
+                                        className="text-sm md:text-lg text-gray-300 mb-2  leading-relaxed"
                                         dangerouslySetInnerHTML={{
                                             __html:
                                                 project.description.length > 150
@@ -130,10 +132,10 @@ const ProjectsSection = () => {
                         ))}
                     </motion.div>
                 </motion.div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Modal for full description */}
-            <Modal isOpen={!!selectedProject} onClose={handleCloseModal}>
+            {/* <Modal isOpen={!!selectedProject} onClose={handleCloseModal}>
                 {selectedProject && (
                     <div className="max-w-lg mx-auto">
                         <h2 className="text-2xl font-bold mb-4">{selectedProject.name}</h2>
@@ -169,7 +171,7 @@ const ProjectsSection = () => {
                         </div>
                     </div>
                 )}
-            </Modal>
+            </Modal>  */}
 
         </div>
     );

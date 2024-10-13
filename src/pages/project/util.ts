@@ -45,7 +45,7 @@ export const projects = [
     id: 3,
     name: "Blog Project",
     description: `
-      <h1 class="text-lg font-semibold">Blog Project</h1> is a comprehensive platform for readers and writers to explore blogs and share insights. Designed to cater to avid readers and writers alike.
+      <strong class="text-lg font-semibold">Blog Project</strong> is a comprehensive platform for readers and writers to explore blogs and share insights. Designed to cater to avid readers and writers alike.
       <h3 class="text-xl font-bold mt-4">Features:</h3>
       <ul class="list-disc pl-5 mt-2">
         <li>Built using React, Node.js, Nest.js, and MongoDB for seamless data management.</li>
