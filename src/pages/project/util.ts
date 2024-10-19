@@ -21,7 +21,7 @@ export const projects = [
       </ul>
     `,
     image: chilloutProject,
-    codeUrl: "https://github.com/Naveedahmedtech/chill_out_client.git",
+    // codeUrl: "https://github.com/Naveedahmedtech/chill_out_client.git",
     demoUrl: "https://chillout-naveed.netlify.app/",
   },
   {
