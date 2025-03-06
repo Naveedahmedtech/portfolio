@@ -9,18 +9,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16, 18, 20, 22.11.0] # Add multiple Node.js versions
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22.11.0
 
       - name: Install Dependencies
         run: npm install
@@ -28,19 +24,14 @@ jobs:
       - name: Build React App
         run: npm run build
 
-      - name: Ensure Correct Permissions on EC2
+      - name: Ensure Deployment Directory Exists
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            if [ -d "/var/www/react-app/" ]; then
-              echo "Directory exists. Fixing permissions..."
-            else
-              echo "Directory does not exist. Creating..."
-              sudo mkdir -p /var/www/react-app/
-            fi
+            sudo mkdir -p /var/www/react-app/
             sudo chown -R ubuntu:www-data /var/www/react-app/
             sudo chmod -R 775 /var/www/react-app/
 
@@ -50,7 +41,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "dist/"
+          source: "build/*"
           target: "/var/www/react-app/"
 
       - name: Restart Nginx
