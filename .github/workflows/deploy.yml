@@ -22,9 +22,12 @@ jobs:
         run: npm install
 
       - name: Build React App
-        run: npm run build
+        run: npm run build # Ensure this generates `dist/`
 
-      - name: Ensure Deployment Directory Exists
+      - name: Verify Build Output
+        run: ls -la dist  # <-- This ensures `dist/` contains the build files
+
+      - name: Ensure Deployment Directory Exists on EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -41,7 +44,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "dist/*"
+          source: "dist/*"  
           target: "/var/www/react-app/"
 
       - name: Restart Nginx
