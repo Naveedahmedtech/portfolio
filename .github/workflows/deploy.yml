@@ -41,7 +41,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "build/*"
+          source: "dist/*"
           target: "/var/www/react-app/"
 
       - name: Restart Nginx
