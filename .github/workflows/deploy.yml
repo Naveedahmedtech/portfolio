@@ -3,7 +3,7 @@ name: Deploy React App
 on:
   push:
     branches:
-      - master  # Change if your branch is different
+      - master  
 
 jobs:
   deploy:
@@ -22,10 +22,10 @@ jobs:
         run: npm install
 
       - name: Build React App
-        run: npm run build # Ensure this generates `dist/`
+        run: npm run build 
 
       - name: Verify Build Output
-        run: ls -la dist  # <-- This ensures `dist/` contains the build files
+        run: ls -la dist  
 
       - name: Ensure Deployment Directory Exists on EC2
         uses: appleboy/ssh-action@master
