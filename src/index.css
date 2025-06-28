@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background-light: #f9fafb;
+  --background-light: #fdfdfd;
   --surface-light: #f1f5f9;
-  --text-primary-light: #111827;
-  --text-secondary-light: #6b7280;
-  --primary-light: #3b82f6;
-  --secondary-light: #64748b;
-  --accent-light: #22c55e;
-  --error-light: #ef4444;
+  --text-primary-light: #1f2937;     /* Slate-800 */
+  --text-secondary-light: #6b7280;   /* Gray-500 */
+  --primary-light: #2563eb;          /* Blue-600 */
+  --secondary-light: #7c3aed;        /* Violet-600 */
+  --accent-light: #10b981;           /* Emerald-500 */
+  --error-light: #dc2626;            /* Red-600 */
 
-  --background-dark: #0f172a;
+  --background-dark: #0b1120;
   --surface-dark: #1e293b;
-  --text-primary-dark: #f8fafc;
-  --text-secondary-dark: #94a3b8;
-  --primary-dark: #3b82f6;
-  --secondary-dark: #64748b;
-  --accent-dark: #22c55e;
-  --error-dark: #ef4444;
+  --text-primary-dark: #e2e8f0;      /* Slate-200 */
+  --text-secondary-dark: #94a3b8;    /* Slate-400 */
+  --primary-dark: #3b82f6;           /* Blue-500 */
+  --secondary-dark: #a78bfa;         /* Violet-400 */
+  --accent-dark: #34d399;            /* Emerald-400 */
+  --error-dark: #f87171;             /* Red-400 */
 }
 
 .light {
@@ -44,7 +44,6 @@
   --error: var(--error-dark);
 }
 
-
 body {
   scroll-behavior: smooth;
   box-sizing: border-box;
@@ -52,45 +51,50 @@ body {
   margin: 0;
 }
 
-
 /* For Webkit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px;
-  /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
   background: #00051c;
-  /* Track color */
   border-radius: 10px;
-  /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb {
   background: #444;
-  /* Scrollbar color */
   border-radius: 10px;
-  /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #666;
-  /* Scrollbar color on hover */
 }
 
 /* For Firefox */
 * {
   scrollbar-width: thin;
-  /* Thin scrollbar */
   scrollbar-color: #2e45ab #00051c00;
-  /* Thumb color and track color */
 }
 
-/* Optional: Adjustments for specific elements */
 .scrollable-element {
-  /* Apply the scrollbar styles to specific elements */
   overflow-y: auto;
-  /* Enable vertical scrolling */
   max-height: 300px;
-  /* Set a maximum height */
+}
+
+
+
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.25s ease-out;
 }
