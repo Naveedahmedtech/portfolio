@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           <a href="#about" className="hover:text-primary transition text-sm">About</a>
           <a href="#projects" className="hover:text-primary transition text-sm">Projects</a>
           <a href="#contact" className="hover:text-primary transition text-sm">Contact</a>
-          <a href="/resume.pdf" target="_blank" className="hover:text-primary transition text-sm">Resume</a>
+          <a href="#testimonials" className="hover:text-primary transition text-sm">Testimonials</a>
         </div>
 
         {/* Social Links */}

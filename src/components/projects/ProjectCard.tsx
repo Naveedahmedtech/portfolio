@@ -39,6 +39,7 @@ const ProjectCard: React.FC<Props> = ({
         <img
           src={image}
           alt={title}
+          loading="lazy"
           className="object-cover w-full h-64 sm:h-96 rounded-xl"
         />
       </motion.div>
