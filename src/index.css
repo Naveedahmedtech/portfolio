@@ -82,7 +82,15 @@ body {
 }
 
 
-
+.glass-card {
+  background: rgba(var(--surface-rgb), 0.3);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--surface-rgb), 0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
 
 @keyframes slide-down {
   0% {

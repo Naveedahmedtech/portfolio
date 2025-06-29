@@ -1,91 +1,132 @@
-// src/layout/header/Header.tsx
-
 import React, { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import NavItem from "./NavItem";
+import { Link, Outlet } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Header: React.FC = () => {
-    const { theme, toggleTheme } = useTheme();
-    const [isMobileOpen, setMobileOpen] = useState(false);
-    const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    return (
-        <>
-            <header className="
-      sticky top-0 z-50 w-full 
-      bg-background backdrop-blur-md shadow-md
-      transition-colors duration-300
-    ">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    {/* Logo */}
-                    <Link to="/" className="text-2xl font-extrabold tracking-tight text-primary">
-                        <span className="text-primary">My</span><span className="text-secondary">Portfolio</span>
-                    </Link>
+  return (
+    <>
+      {/* HEADER */}
+      <motion.header
+        className="sticky top-0 z-50 w-full bg-background backdrop-blur-xl border-b border-border shadow-xl"
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+          {/* LEFT: Logo */}
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: 1 }}
+            className="font-extrabold text-xl tracking-tight"
+          >
+            <Link to="/" className="flex items-center gap-2">
+              <motion.div
+                className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent animate-gradient-x"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.7 }}
+              >
+                Naveed<span className="text-primary">Dev</span>
+              </motion.div>
+              <motion.div
+                className="ml-1 w-2 h-2 rounded-full bg-accent shadow-lg animate-pulse"
+                layoutId="logo-dot"
+              />
+            </Link>
+          </motion.div>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center space-x-8">
-                        {navLinks.map((link) => (
-                            <NavItem
-                                key={link.href}
-                                label={link.label}
-                                href={link.href}
-                                isActive={location.pathname === link.href}
-                            />
-                        ))}
-                    </nav>
+          {/* CENTER: Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6 relative">
+            {navLinks.map((link, idx) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                className="relative text-textSecondary hover:text-primary transition-all font-medium"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.08 }}
+              >
+                {link.label}
+                <motion.span
+                  className="absolute left-0 bottom-0 h-[2px] w-0 bg-primary transition-all group-hover:w-full"
+                  layoutId="nav-underline"
+                />
+              </motion.a>
+            ))}
+          </nav>
 
-                    {/* Right Controls */}
-                    <div className="flex items-center space-x-4">
-                        {/* Theme Toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            className="text-xl text-textSecondary hover:text-primary transition-colors duration-200"
-                            aria-label="Toggle theme"
-                        >
-                            {theme === "dark" ? <MdOutlineLightMode size={22} /> : <MdOutlineDarkMode size={22} />}
-                        </button>
+          {/* RIGHT: Controls */}
+          <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-surface/70 hover:bg-surface/90 border border-border backdrop-blur shadow-inner"
+              whileTap={{ rotate: 180 }}
+              whileHover={{ scale: 1.1 }}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <MdOutlineLightMode className="text-yellow-400" />
+              ) : (
+                <MdOutlineDarkMode className="text-blue-600" />
+              )}
+            </motion.button>
 
-                        {/* Mobile Menu Toggle */}
-                        <button
-                            className="md:hidden text-2xl text-textSecondary hover:text-primary transition-colors duration-200"
-                            onClick={() => setMobileOpen(!isMobileOpen)}
-                            aria-label="Toggle mobile menu"
-                        >
-                            {isMobileOpen ? <FiX /> : <FiMenu />}
-                        </button>
-                    </div>  
-                </div>
+            {/* Mobile Menu Toggle */}
+            <motion.button
+              className="md:hidden p-2 rounded-full text-textSecondary hover:text-primary"
+              onClick={() => setMenuOpen(!menuOpen)}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Open mobile menu"
+            >
+              {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+            </motion.button>
+          </div>
+        </div>
+      </motion.header>
 
-                {/* Mobile Dropdown */}
-                {isMobileOpen && (
-                    <div className="md:hidden px-4 pb-4 pt-2 border-t border-border bg-surface shadow-inner animate-slide-down">
-                        <nav className="flex flex-col space-y-4">
-                            {navLinks.map((link) => (
-                                <NavItem
-                                    key={link.href}
-                                    label={link.label}
-                                    href={link.href}
-                                    onClick={() => setMobileOpen(false)}
-                                    isActive={location.pathname === link.href}
-                                />
-                            ))}
-                        </nav>
-                    </div>
-                )}
-            </header>
-            <Outlet />
-        </>
-    );
+      {/* MOBILE NAV OVERLAY */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ y: "-100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "-100%", opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed top-0 left-0 w-full h-full bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-8 px-6"
+          >
+            {navLinks.map((link, idx) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                className="text-2xl font-semibold text-textSecondary hover:text-primary transition-all"
+                onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                {link.label}
+              </motion.a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Outlet />
+    </>
+  );
 };
 
 export default Header;
