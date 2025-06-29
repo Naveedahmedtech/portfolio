@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaStar, FaBriefcase, FaQuoteLeft } from "react-icons/fa";
+import { UPWORK_URL } from "../../constants";
 
 const Testimonials: React.FC = () => {
   return (
@@ -68,7 +69,7 @@ const Testimonials: React.FC = () => {
           {/* Footer */}
           <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center text-sm text-textSecondary gap-3 z-10 relative border-t border-border pt-4">
             <a
-              href="https://www.upwork.com"
+              href={UPWORK_URL}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-green-400 hover:underline transition"
