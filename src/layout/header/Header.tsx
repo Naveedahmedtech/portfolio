@@ -1,20 +1,44 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import Footer from "../footer/Footer";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", id: "home" },
+  { label: "About", id: "about" },
+  { label: "Projects", id: "projects" },
+  { label: "Testimonials", id: "testimonials" },
+  { label: "Contact", id: "contact" },
 ];
+
+
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavClick = (id: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+
+      // Delay scroll until page renders
+      setTimeout(() => {
+        const section = document.getElementById(id);
+        if (section) section.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const section = document.getElementById(id);
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    setMenuOpen(false);
+  };
+
 
   return (
     <>
@@ -38,7 +62,7 @@ const Header: React.FC = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.7 }}
               >
-                Naveed<span className="text-primary">Dev</span>
+                Naveed
               </motion.div>
               <motion.div
                 className="ml-1 w-2 h-2 rounded-full bg-accent shadow-lg animate-pulse"
@@ -50,21 +74,18 @@ const Header: React.FC = () => {
           {/* CENTER: Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 relative">
             {navLinks.map((link, idx) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
+              <motion.button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
                 className="relative text-textSecondary hover:text-primary transition-all font-medium"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.08 }}
               >
                 {link.label}
-                <motion.span
-                  className="absolute left-0 bottom-0 h-[2px] w-0 bg-primary transition-all group-hover:w-full"
-                  layoutId="nav-underline"
-                />
-              </motion.a>
+              </motion.button>
             ))}
+
           </nav>
 
           {/* RIGHT: Controls */}
@@ -108,23 +129,24 @@ const Header: React.FC = () => {
             className="fixed top-0 left-0 w-full h-full bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-8 px-6"
           >
             {navLinks.map((link, idx) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
+              <motion.button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
                 className="text-2xl font-semibold text-textSecondary hover:text-primary transition-all"
-                onClick={() => setMenuOpen(false)}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
               >
                 {link.label}
-              </motion.a>
+              </motion.button>
             ))}
+
           </motion.div>
         )}
       </AnimatePresence>
 
       <Outlet />
+      <Footer />
     </>
   );
 };

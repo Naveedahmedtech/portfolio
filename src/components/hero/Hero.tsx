@@ -125,7 +125,7 @@ const Hero: React.FC = () => {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Link
-                  to="/contact"
+                  to="/#contact"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-primary text-primary font-semibold hover:bg-primary hover:text-background group relative overflow-hidden"
                 >
                   <motion.div
