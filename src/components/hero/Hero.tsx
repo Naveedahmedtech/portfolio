@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
           <img
             src="/images/naveed.png"
             alt="Naveed"
-              loading="lazy"
+            loading="lazy"
             className="w-full h-full object-cover object-top z-10"
           />
           <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-20" />
@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
 
       {/* Left Content */}
       <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex items-center">
-<div className="absolute inset-0 bg-gradient-to-r from-background to-transparent z-0 md:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background to-transparent z-0 md:hidden" />
 
         <motion.div
           className="w-full md:w-1/2 space-y-8"
@@ -44,36 +44,16 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-textPrimary"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl lg:text-5xl font-extrabold tracking-tight text-textPrimary leading-tight"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
           >
-            <motion.span
-              className="block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              I help teams
-            </motion.span>
-            <motion.span
-              className="text-primary block"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8, type: "spring", stiffness: 80 }}
-            >
-              ship better digital products
-            </motion.span>
-            <motion.span
-              className="block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-            >
-              with clarity, code, and craft.
-            </motion.span>
+            Building smart,<br />
+            scalable <span className="text-primary">web & AI</span> experiences<br />
+            with precision, performance & purpose.
           </motion.h1>
+
 
           <motion.p
             className="text-textPrimary md:text-textSecondary text-base md:text-lg max-w-xl leading-relaxed"
