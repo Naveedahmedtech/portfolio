@@ -26,6 +26,7 @@ const Hero: React.FC = () => {
           <img
             src="/images/naveed.png"
             alt="Naveed"
+              loading="lazy"
             className="w-full h-full object-cover object-top z-10"
           />
           <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-20" />
@@ -34,6 +35,8 @@ const Hero: React.FC = () => {
 
       {/* Left Content */}
       <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex items-center">
+<div className="absolute inset-0 bg-gradient-to-r from-background to-transparent z-0 md:hidden" />
+
         <motion.div
           className="w-full md:w-1/2 space-y-8"
           initial={{ opacity: 0, y: 40 }}
@@ -73,7 +76,7 @@ const Hero: React.FC = () => {
           </motion.h1>
 
           <motion.p
-            className="text-base md:text-lg text-textSecondary max-w-xl leading-relaxed"
+            className="text-textPrimary md:text-textSecondary text-base md:text-lg max-w-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7 }}

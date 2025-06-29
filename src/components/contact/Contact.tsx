@@ -40,11 +40,12 @@ const Contact: React.FC = () => {
             Start a Project <br /> or Just Say Hello 👋
           </h2>
           <p className="text-textSecondary max-w-md">
-            Open to freelance, remote work, or exciting collaborations.
-            Whether you’ve got an idea or just want to network — drop a line.
+            Open to full-time roles, freelance work, or remote opportunities.
+            If you're hiring, building a team, or just want to connect — I'd love to hear from you.
+
           </p>
 
-          <div className="flex items-center gap-4 mt-6">
+          <div className="flex items-center flex-wrap gap-4 mt-6">
             <button
               onClick={handleCopy}
               className="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border rounded-full hover:bg-surface/80 transition text-sm"

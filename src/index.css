@@ -51,6 +51,15 @@ body {
   margin: 0;
 }
 
+.image {
+  filter: blur(20px);
+  transition: filter 0.4s ease;
+}
+.image.loaded {
+  filter: blur(0);
+}
+
+
 /* For Webkit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px;

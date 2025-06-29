@@ -77,7 +77,7 @@ const Header: React.FC = () => {
               <motion.button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="relative text-textSecondary hover:text-primary transition-all font-medium"
+                className="relative text-textPrimary hover:text-primary transition-all font-medium"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.08 }}
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
               <motion.button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="text-2xl font-semibold text-textSecondary hover:text-primary transition-all"
+                className="text-2xl font-semibold text-textPrimary hover:text-primary transition-all"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
