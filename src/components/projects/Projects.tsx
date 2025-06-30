@@ -8,7 +8,9 @@ import projects from "../../utils/projects";
 
 const Projects: React.FC = () => {
     return (
-        <section id="projects" className="bg-background py-32 px-6 text-textPrimary">
+        <section
+         id="projects" className="bg-background px-6 text-textPrimary"
+         >
             <div className="max-w-6xl mx-auto space-y-24">
                 {/* Heading + CTA */}
                 <motion.div
@@ -22,13 +24,15 @@ const Projects: React.FC = () => {
                         <p className="text-sm uppercase font-semibold tracking-widest text-accent">
                             Creative Showcase
                         </p>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-                            Real Products. Thoughtful Design.
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight mt-2">
+                            Real Products. Purposeful Design.
                         </h2>
                         <p className="text-textSecondary mt-4 max-w-xl">
-                            Real-world solutions crafted through precision, motion, and modern web tech — built to engage, scale, and last.
+                            Solutions crafted with precision, performance, and personality. Built using modern frameworks, rich interaction, and scalable systems to deliver real-world value.
                         </p>
                     </div>
+
+
 
                     <motion.div whileHover={{ scale: 1.03 }}>
                         <Link

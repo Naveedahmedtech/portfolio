@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
+import { FaUpwork } from "react-icons/fa6";
 
 const Hero: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-accent rounded-full mix-blend-lighten blur-2xl opacity-60 animate-ping" />
       </motion.div>
 
-      {/* Right Image - Bottom Blend */}
+      {/* Right Image with Gradient Overlay */}
       <div className="absolute inset-y-0 right-0 w-full md:w-1/2 z-0 flex items-end">
         <div className="relative w-full h-full">
           <img
@@ -49,22 +50,32 @@ const Hero: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
           >
-            Building smart,<br />
-            scalable <span className="text-primary">web & AI</span> experiences<br />
-            with precision, performance & purpose.
+            Designing future-forward<br />
+            <span className="text-primary">web & AI products</span><br />
+            that scale with purpose and precision.
           </motion.h1>
-
 
           <motion.p
             className="text-textPrimary md:text-textSecondary text-base md:text-lg max-w-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            whileHover={{ x: 2 }}
           >
-            From high-converting UI to scalable backend logic — I combine modern frameworks, motion, and AI to solve meaningful problems.
+            I craft performant interfaces, smart systems, and scalable infrastructure using modern frameworks, motion, and AI. Every solution is engineered for clarity, speed, and real-world impact.
           </motion.p>
+          <motion.div
+            className="flex items-center gap-2 text-sm font-medium text-accent mt-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          >
+            <FaUpwork className="text-xl text-green-500" />
+            <span>
+              Earning over <span className="font-semibold text-primary">$800+</span> on Upwork with a <span className="underline underline-offset-4">Rising Talent</span> badge
+            </span>
+          </motion.div>
+
+
 
           <motion.div
             className="flex gap-4 flex-wrap"
@@ -72,6 +83,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
+            {/* Projects CTA */}
             <motion.div whileHover="hover" initial="rest" animate="rest">
               <motion.div
                 variants={{
@@ -84,9 +96,7 @@ const Hero: React.FC = () => {
                   to="/projects"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-background font-semibold shadow-md hover:shadow-xl group relative overflow-hidden"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300 blur-xl"
-                  />
+                  <motion.div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300 blur-xl" />
                   <span className="relative z-10">See What I’ve Built</span>
                   <motion.span
                     className="relative z-10 inline-block"
@@ -99,6 +109,7 @@ const Hero: React.FC = () => {
               </motion.div>
             </motion.div>
 
+            {/* Contact CTA */}
             <motion.div whileHover="hover" initial="rest" animate="rest">
               <motion.div
                 variants={{
@@ -111,10 +122,8 @@ const Hero: React.FC = () => {
                   to="/#contact"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-primary text-primary font-semibold hover:bg-primary hover:text-background group relative overflow-hidden"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition duration-300 blur-xl"
-                  />
-                  <span className="relative z-10">Let’s Build Something Smart</span>
+                  <motion.div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition duration-300 blur-xl" />
+                  <span className="relative z-10">Let’s Build Together</span>
                   <motion.span
                     className="relative z-10 inline-block"
                     variants={{ rest: { x: 0 }, hover: { x: 6 } }}
