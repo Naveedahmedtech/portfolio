@@ -56,7 +56,9 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="bg-background py-32 px-6 text-textPrimary">
+    <section
+     id="contact" className="bg-background py-24 px-6 text-textPrimary"
+     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT SIDE */}
         <motion.div
@@ -70,11 +72,10 @@ const Contact: React.FC = () => {
             Let's Connect
           </p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-            Start a Project <br /> or Just Say Hello 👋
+            Start a Project<br />or Just Say Hello <span role="img" aria-label="wave">👋</span>
           </h2>
           <p className="text-textSecondary max-w-md">
-            Open to full-time roles, freelance work, or remote opportunities.
-            If you're hiring, building a team, or just want to connect — I'd love to hear from you.
+            I'm open to full time roles, freelance projects, and remote opportunities. If you're hiring, collaborating, or simply interested, feel free to reach out. I’d love to connect.
           </p>
 
           <div className="flex items-center flex-wrap gap-4 mt-6">
@@ -105,6 +106,7 @@ const Contact: React.FC = () => {
             </a>
           </div>
         </motion.div>
+
 
         {/* RIGHT SIDE – Contact Form */}
         <motion.form

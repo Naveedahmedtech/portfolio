@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaStar, FaBriefcase, FaQuoteLeft } from "react-icons/fa";
+import { FaStar, FaQuoteLeft } from "react-icons/fa";
 import { UPWORK_URL } from "../../constants";
+import { FaUpwork } from "react-icons/fa6";
 
 const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="bg-background py-24 px-6 text-textPrimary relative"
+      className="bg-background pt-24 px-6 text-textPrimary relative"
     >
       <div className="max-w-6xl mx-auto space-y-14">
         {/* Section Heading + Subtext */}
@@ -21,8 +22,8 @@ const Testimonials: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-extrabold text-primary">
             One Review That Says Everything
           </h2>
-          <p className="text-base text-textSecondary max-w-2xl leading-relaxed">
-            When the work is done right — it shows. Here's what one of my clients had to say after a project that blended fast delivery, quality code, and collaborative communication. If you're wondering what it's like to work with me, this might help you decide.
+          <p className="text-base text-textSecondary max-w-6xl leading-relaxed  mt-2">
+            When the work is done right, it shows. Here's what one of my clients had to say after a project that combined fast delivery, quality code, and strong collaboration. If you're wondering what it's like to work with me, this might help you decide.
           </p>
         </motion.div>
 
@@ -74,7 +75,7 @@ const Testimonials: React.FC = () => {
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-green-400 hover:underline transition"
             >
-              <FaBriefcase className="text-green-500" />
+              <FaUpwork className="text-xl text-green-500" />
               View on Upwork
             </a>
           </div>
