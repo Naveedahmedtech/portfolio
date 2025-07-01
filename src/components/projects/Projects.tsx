@@ -9,7 +9,7 @@ import projects from "../../utils/projects";
 const Projects: React.FC = () => {
     return (
         <section
-         id="projects" className="bg-background px-6 text-textPrimary"
+         id="projects" className="bg-background py-24 px-6 text-textPrimary"
          >
             <div className="max-w-6xl mx-auto space-y-24">
                 {/* Heading + CTA */}
