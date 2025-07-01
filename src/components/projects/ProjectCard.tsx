@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import type { IconType } from "react-icons"; // ✅ For typing icon component
@@ -17,13 +17,16 @@ interface Props {
 const ProjectCard: React.FC<Props> = ({
   title,
   description,
-  icon: Icon, // ✅ Rename for use as JSX
+  icon: Icon,
   image,
   tags,
   live,
   repo,
   reverse = false,
 }) => {
+  const [expanded, setExpanded] = useState(false);
+  const toggleDescription = () => setExpanded(!expanded);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -42,19 +45,35 @@ const ProjectCard: React.FC<Props> = ({
           loading="lazy"
           className="w-full h-full object-cover aspect-video rounded-xl"
         />
-
       </motion.div>
 
       <div className="w-full lg:w-1/2 space-y-4">
         <div className="flex items-center gap-3">
-          <Icon className="text-primary text-xl" /> {/* ✅ Render icon here */}
+          <Icon className="text-primary text-xl" />
           <h3 className="text-2xl font-bold text-primary">{title}</h3>
         </div>
 
-        <p className="text-textSecondary text-base leading-relaxed">
-          {description}
-        </p>
+        {/* Description with See More */}
+        {/* Description with See More */}
+        <div className="relative transition-all duration-500 ease-in-out">
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${expanded ? "max-h-[1000px]" : "max-h-24"
+              }`}
+          >
+            <p className="text-textSecondary text-base leading-relaxed">
+              {description}
+            </p>
+          </div>
+          <button
+            onClick={toggleDescription}
+            className="mt-2 text-sm text-accent font-medium hover:underline focus:outline-none"
+          >
+            {expanded ? "See Less" : "See More"}
+          </button>
+        </div>
 
+
+        {/* Tags */}
         <motion.div className="flex flex-wrap gap-2 mt-3">
           {tags.map((tag, i) => (
             <motion.span
@@ -67,6 +86,7 @@ const ProjectCard: React.FC<Props> = ({
           ))}
         </motion.div>
 
+        {/* Links */}
         <div className="flex gap-4 mt-6">
           <a
             href={live}
@@ -89,5 +109,6 @@ const ProjectCard: React.FC<Props> = ({
     </motion.div>
   );
 };
+
 
 export default ProjectCard;
