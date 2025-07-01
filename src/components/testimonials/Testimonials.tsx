@@ -8,7 +8,7 @@ const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="bg-background pt-24 px-6 text-textPrimary relative"
+      className="bg-background py-24 px-6 text-textPrimary relative"
     >
       <div className="max-w-6xl mx-auto space-y-14">
         {/* Section Heading + Subtext */}
