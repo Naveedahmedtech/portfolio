@@ -75,7 +75,7 @@ const projects: Project[] = [
   {
     title: "House of Pakistan",
     description:
-      "House of Pakistan is a dynamic cultural and business platform designed to celebrate Pakistan’s heritage while enabling local enterprises to thrive digitally. It blends storytelling, visual richness, and powerful business tools into one seamless experience. Key features include multilingual content, curated heritage galleries, service and product listings, custom order workflows, express store setup, user dashboards, and granular team role access. Businesses can showcase offerings, manage inventories, receive custom orders, and collaborate through role-based permissions — all within a unified, interactive interface. The platform is optimized for performance, accessibility, and cross-device responsiveness.",
+      "House of Pakistan is a dynamic cultural and business platform designed to celebrate Pakistan’s heritage while enabling local enterprises to thrive digitally. It blends storytelling, visual richness, and powerful business tools into one seamless experience. Key features include multilingual content, curated heritage galleries, service and product listings, custom order workflows, express store setup, user dashboards, and granular team role access. Businesses can showcase offerings, manage inventories, receive custom orders, and collaborate through role-based permissions all within a unified, interactive interface.",
     icon: FaStoreAlt,
     image: houseofpakistanProject,
     live: "https://houseofpakistan.com",
