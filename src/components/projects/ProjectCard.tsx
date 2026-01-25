@@ -88,22 +88,31 @@ const ProjectCard: React.FC<Props> = ({
 
         {/* Links */}
         <div className="flex gap-4 mt-6">
-          <a
-            href={live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
-          >
-            <FaExternalLinkAlt /> Live Demo
-          </a>
-          <a
-            href={repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
-          >
-            <FaGithub /> GitHub
-          </a>
+          {
+            live && live !== "#" && (
+
+              <a
+                href={live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
+              >
+                <FaExternalLinkAlt /> Live Demo
+              </a>
+            )
+          }
+          {
+            repo && repo !== "#" && (
+              <a
+                href={repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
+              >
+                <FaGithub /> GitHub
+              </a>
+            )
+          }
         </div>
       </div>
     </motion.div>

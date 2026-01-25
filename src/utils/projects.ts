@@ -136,7 +136,7 @@ const projects: Project[] = [
       "Minimalist Instagram clone with real-time chat, image feed, and custom theming.",
     icon: FaInstagram,
     image: chilloutProject,
-    live: "#",
+    live: "",
     repo: "#",
     tags: ["MERN", "Socket.io", "Cloudinary"],
   },
