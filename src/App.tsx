@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import ContextMenu from "./components/ContextMenu";
+import GlobalCanvas from "./components/canvas/GlobalCanvas";
+import { ScrollProgressProvider } from "./hooks/useScrollProgress";
 import Hero from "./features/hero";
 import Skills from "./features/skills";
 import ExperienceProjects from "./features/experience-projects";
@@ -47,18 +49,23 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-textPrimary selection:bg-accent selection:text-white">
-      <CustomCursor />
-      <Header />
-      <ContextMenu />
-      <main className="relative">
-        <Hero />
-        <Skills />
-        <ExperienceProjects />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <ScrollProgressProvider>
+      <div className="min-h-screen bg-background text-textPrimary selection:bg-accent selection:text-white">
+        {/* Global 3D Canvas - Fixed position, spans all sections */}
+        <GlobalCanvas />
+
+        <CustomCursor />
+        <Header />
+        <ContextMenu />
+        <main className="relative z-10">
+          <Hero />
+          <Skills />
+          <ExperienceProjects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </ScrollProgressProvider>
   );
 }
 

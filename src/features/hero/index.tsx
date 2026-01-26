@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import HeroCanvas from "./canvas/HeroCanvas";
 import useHeroTextReveal from "./hooks/useHeroTextReveal";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Button from "../../components/Button";
@@ -29,11 +28,9 @@ const Hero: React.FC = () => {
         <div ref={triggerRef} className="relative h-[350vh] w-full">
           <div
             ref={containerRef}
-            className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-background"
+            className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent"
           >
-            <div className="pointer-events-none absolute inset-0 z-0">
-              <HeroCanvas />
-            </div>
+            {/* 3D canvas is now handled by GlobalCanvas */}
 
             <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-6 text-center lg:px-16">
 

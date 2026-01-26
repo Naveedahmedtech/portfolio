@@ -44,7 +44,7 @@ const Skills: React.FC = () => {
       >
         <div
           ref={containerRef}
-          className="sticky top-0 h-screen w-full overflow-hidden bg-background"
+          className="sticky top-0 h-screen w-full overflow-hidden bg-transparent"
         >
           {/* Atmospheric Background Elements */}
           <div className="absolute inset-0 z-0 opacity-20 transition-opacity duration-1000">
