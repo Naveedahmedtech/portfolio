@@ -1,355 +1,167 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { FaHandPointer } from "react-icons/fa";
-import {
-  getCursorAnchors,
-  subscribeCursorAnchors,
-  type CursorAnchor,
-} from "../state/cursorAnchors";
-
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value));
-
-const isInteractiveTarget = (target: EventTarget | null) => {
-  if (!(target instanceof Element)) return false;
-  return Boolean(
-    target.closest(
-      "a, button, [role='button'], input, textarea, select, [data-cursor='hover']"
-    )
-  );
-};
 
 const CustomCursor: React.FC = () => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const coreRef = useRef<HTMLDivElement>(null);
-  const haloRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<SVGSVGElement>(null);
+  const followerRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
-  const pulseRef = useRef<HTMLDivElement>(null);
-  const rippleRef = useRef<HTMLDivElement>(null);
-  const tetherRef = useRef<HTMLCanvasElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
-  const targetRef = useRef({ x: 0, y: 0 });
-  const coreRefPos = useRef({ x: 0, y: 0 });
-  const ringRefPos = useRef({ x: 0, y: 0 });
-  const haloRefPos = useRef({ x: 0, y: 0 });
-  const lastRefPos = useRef({ x: 0, y: 0 });
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const ringPos = useRef({ x: 0, y: 0 });
+  const followerPos = useRef({ x: 0, y: 0 });
+  const lastPos = useRef({ x: 0, y: 0 });
+
   const hoverRef = useRef(false);
-  const hoverBlendRef = useRef(0);
   const activeRef = useRef(false);
-  const anchorsRef = useRef<CursorAnchor[]>(getCursorAnchors());
-  const clickStrengthRef = useRef(0);
-  const rippleStartRef = useRef<number | null>(null);
-  const hoverPulseRef = useRef<number | null>(null);
-  const tetherSizeRef = useRef({ width: 0, height: 0 });
-
-  const reduceMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
+  const scaleRef = useRef(1);
+  const tiltRef = useRef(0);
 
   const isCoarsePointer = useMemo(() => {
     if (typeof window === "undefined") return false;
     return window.matchMedia("(pointer: coarse)").matches;
   }, []);
 
-  useEffect(() => {
-    if (isCoarsePointer) return;
-    document.body.classList.add("cursor-hidden");
-    return () => document.body.classList.remove("cursor-hidden");
-  }, [isCoarsePointer]);
-
-  useEffect(() => {
-    const updateAnchors = () => {
-      anchorsRef.current = getCursorAnchors();
-    };
-    updateAnchors();
-    return subscribeCursorAnchors(updateAnchors);
+  const reduceMotion = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
   useEffect(() => {
     if (isCoarsePointer) return;
-    const handleMove = (event: PointerEvent) => {
-      targetRef.current.x = event.clientX;
-      targetRef.current.y = event.clientY;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
       activeRef.current = true;
 
-      const isHovering = isInteractiveTarget(event.target);
-      if (hoverRef.current !== isHovering) {
-        hoverRef.current = isHovering;
-        rootRef.current?.classList.toggle("cursor-hover", isHovering);
-        if (isHovering) {
-          hoverPulseRef.current = performance.now();
-          rippleStartRef.current = performance.now();
-        }
+      const hovering = Boolean((e.target as Element)?.closest("a, button, [role='button'], input, textarea, [data-cursor='hover']"));
+      if (hoverRef.current !== hovering) {
+        hoverRef.current = hovering;
       }
     };
 
-    const handleLeave = () => {
-      activeRef.current = false;
-    };
+    const handleMouseDown = () => { scaleRef.current = 0.85; };
+    const handleMouseUp = () => { scaleRef.current = 1; };
 
-    const handleDown = () => {
-      clickStrengthRef.current = 1;
-      rippleStartRef.current = performance.now();
-    };
-
-    window.addEventListener("pointermove", handleMove, { passive: true });
-    window.addEventListener("pointerdown", handleDown);
-    window.addEventListener("blur", handleLeave);
-    window.addEventListener("pointerleave", handleLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener("pointermove", handleMove);
-      window.removeEventListener("pointerdown", handleDown);
-      window.removeEventListener("blur", handleLeave);
-      window.removeEventListener("pointerleave", handleLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isCoarsePointer]);
 
   useEffect(() => {
-    if (isCoarsePointer) return;
-    const canvas = tetherRef.current;
-    if (!canvas) return;
+    if (isCoarsePointer || reduceMotion) return;
 
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      tetherSizeRef.current = { width, height };
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-    };
+    let frameId: number;
+    const animate = () => {
+      const mouse = mouseRef.current;
+      const ring = ringRef.current;
+      const follower = followerRef.current;
+      const hand = handRef.current;
+      const dot = dotRef.current;
+      const root = rootRef.current;
 
-    resize();
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, [isCoarsePointer]);
+      const lerpRing = 0.18;
+      const lerpFollower = 0.1;
 
-  useEffect(() => {
-    if (isCoarsePointer) return;
-    const root = rootRef.current;
-    const core = coreRef.current;
-    const halo = haloRef.current;
-    const ring = ringRef.current;
-    const hand = handRef.current;
-    const pulse = pulseRef.current;
-    const ripple = rippleRef.current;
-    const canvas = tetherRef.current;
-    const ctx = canvas?.getContext("2d");
+      ringPos.current.x += (mouse.x - ringPos.current.x) * lerpRing;
+      ringPos.current.y += (mouse.y - ringPos.current.y) * lerpRing;
 
-    if (!root || !core || !halo || !ring || !hand || !pulse || !ripple) return;
+      followerPos.current.x += (mouse.x - followerPos.current.x) * lerpFollower;
+      followerPos.current.y += (mouse.y - followerPos.current.y) * lerpFollower;
 
-    const setTransform = (
-      el: HTMLElement,
-      x: number,
-      y: number,
-      scaleX = 1,
-      scaleY = 1,
-      rotation = 0
-    ) => {
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${rotation}rad) scale(${scaleX}, ${scaleY})`;
-    };
+      const vx = mouse.x - lastPos.current.x;
+      lastPos.current = { x: mouse.x, y: mouse.y };
+      const targetTilt = vx * 0.08;
+      tiltRef.current += (targetTilt - tiltRef.current) * 0.15;
 
-    let frameId = 0;
-    const animate = (time: number) => {
-      const target = targetRef.current;
-      const corePos = coreRefPos.current;
-      const ringPos = ringRefPos.current;
-      const haloPos = haloRefPos.current;
-      const lastPos = lastRefPos.current;
-
-      corePos.x += (target.x - corePos.x) * 0.25;
-      corePos.y += (target.y - corePos.y) * 0.25;
-      ringPos.x += (target.x - ringPos.x) * 0.18;
-      ringPos.y += (target.y - ringPos.y) * 0.18;
-      haloPos.x += (target.x - haloPos.x) * 0.12;
-      haloPos.y += (target.y - haloPos.y) * 0.12;
-
-      const vx = corePos.x - lastPos.x;
-      const vy = corePos.y - lastPos.y;
-      lastPos.x = corePos.x;
-      lastPos.y = corePos.y;
-
-      const speed = clamp(Math.hypot(vx, vy), 0, 30);
-      const stretch = reduceMotion ? 1 : clamp(1 + speed * 0.018, 1, 1.35);
-      const squash = reduceMotion ? 1 : clamp(1 - speed * 0.01, 0.75, 1);
-      const rotation = reduceMotion || speed < 0.5 ? 0 : Math.atan2(vy, vx);
-
-      const hoverTarget = hoverRef.current ? 1 : 0;
-      hoverBlendRef.current += (hoverTarget - hoverBlendRef.current) * 0.12;
-      const hoverBlend = hoverBlendRef.current;
-      const hoverScale = 1 + hoverBlend * 0.6;
-      const ringScale = 1 + hoverBlend * 0.25;
-      const ringRotation = rotation + hoverBlend * 0.6;
-      const handScale = 0.9 + hoverBlend * 0.4;
-      const clickScale = 1 - clickStrengthRef.current * 0.2;
-
-      if (clickStrengthRef.current > 0) {
-        clickStrengthRef.current = Math.max(
-          0,
-          clickStrengthRef.current - 0.08
-        );
+      if (root) {
+        root.style.opacity = activeRef.current ? "1" : "0";
       }
 
-      if (activeRef.current) {
-        root.style.opacity = "1";
-      } else {
-        root.style.opacity = "0";
+      if (dot) {
+        dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%) scale(${scaleRef.current})`;
       }
 
-      setTransform(core, corePos.x, corePos.y, clickScale, clickScale);
-      setTransform(
-        halo,
-        haloPos.x,
-        haloPos.y,
-        stretch * hoverScale,
-        squash * hoverScale,
-        rotation
-      );
-      setTransform(
-        ring,
-        ringPos.x,
-        ringPos.y,
-        stretch * ringScale,
-        squash * ringScale,
-        ringRotation
-      );
-      const handOffsetX = hoverBlend * 4;
-      const handOffsetY = hoverBlend * 6;
-      setTransform(
-        hand,
-        ringPos.x + handOffsetX,
-        ringPos.y + handOffsetY,
-        handScale,
-        handScale,
-        0
-      );
-
-      halo.style.opacity = `${0.48 + hoverBlend * 0.32}`;
-      ring.style.opacity = `${Math.max(
-        0.05,
-        (0.62 + hoverBlend * 0.18) * (1 - hoverBlend * 1.15)
-      )}`;
-      hand.style.opacity = `${hoverBlend}`;
-      core.style.opacity = `${0.85 - hoverBlend * 0.75}`;
-
-      if (!reduceMotion && hoverPulseRef.current) {
-        const t = clamp((time - hoverPulseRef.current) / 420, 0, 1);
-        const pulseScale = 1 + t * 1.1;
-        const pulseOpacity = (1 - t) * 0.35;
-        setTransform(pulse, corePos.x, corePos.y, pulseScale, pulseScale, 0);
-        pulse.style.opacity = `${pulseOpacity}`;
-        if (t >= 1) {
-          hoverPulseRef.current = null;
-          pulse.style.opacity = "0";
-        }
-      } else if (reduceMotion) {
-        pulse.style.opacity = "0";
-      } else {
-        pulse.style.opacity = "0";
+      if (ring) {
+        const hoverScale = hoverRef.current ? 2.5 : 1;
+        const finalScale = scaleRef.current * hoverScale;
+        ring.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%) scale(${finalScale})`;
+        // Smooth color transition via CSS if needed, but here via style for immediate react-less updates
+        ring.style.color = hoverRef.current ? "var(--accent)" : "rgba(184, 106, 74, 0.4)";
       }
 
-      if (!reduceMotion && rippleStartRef.current) {
-        const t = clamp((time - rippleStartRef.current) / 360, 0, 1);
-        const rippleScale = 1 + t * 2.2;
-        const rippleOpacity = (1 - t) * 0.35;
-        setTransform(ripple, corePos.x, corePos.y, rippleScale, rippleScale, 0);
-        ripple.style.opacity = `${rippleOpacity}`;
-        if (t >= 1) {
-          rippleStartRef.current = null;
-          ripple.style.opacity = "0";
-        }
-      } else if (reduceMotion) {
-        ripple.style.opacity = "0";
-      } else {
-        ripple.style.opacity = "0";
+      if (follower) {
+        const hoverScale = hoverRef.current ? 3.5 : 1;
+        follower.style.transform = `translate3d(${followerPos.current.x}px, ${followerPos.current.y}px, 0) translate(-50%, -50%) scale(${hoverScale})`;
+        follower.style.opacity = hoverRef.current ? "0.3" : "0.08";
       }
 
-      if (ctx) {
-        const { width, height } = tetherSizeRef.current;
-        ctx.clearRect(0, 0, width, height);
-        if (activeRef.current) {
-          const anchors = anchorsRef.current;
-          if (anchors.length) {
-            let nearest: CursorAnchor | null = null;
-            let closest = Infinity;
-            for (const anchor of anchors) {
-              const dx = anchor.x - corePos.x;
-              const dy = anchor.y - corePos.y;
-              const dist = Math.hypot(dx, dy);
-              if (dist < closest) {
-                closest = dist;
-                nearest = anchor;
-              }
-            }
+      if (hand) {
+        const hoverScale = hoverRef.current ? 1.4 : 0.5;
+        const rotation = tiltRef.current;
+        const offsetX = hoverRef.current ? 10 : 0;
+        const offsetY = hoverRef.current ? 12 : 0;
 
-            if (nearest && closest < 140) {
-              const gradient = ctx.createLinearGradient(
-                corePos.x,
-                corePos.y,
-                nearest.x,
-                nearest.y
-              );
-              gradient.addColorStop(0, "rgba(210, 236, 255, 0.32)");
-              gradient.addColorStop(0.5, "rgba(210, 236, 255, 0.68)");
-              gradient.addColorStop(1, "rgba(210, 236, 255, 0.28)");
-
-              ctx.strokeStyle = gradient;
-              ctx.lineWidth = 1.4;
-              ctx.beginPath();
-              ctx.moveTo(corePos.x, corePos.y);
-              ctx.lineTo(nearest.x, nearest.y);
-              ctx.stroke();
-
-              const pulseT = (time * 0.0012) % 1;
-              const px = corePos.x + (nearest.x - corePos.x) * pulseT;
-              const py = corePos.y + (nearest.y - corePos.y) * pulseT;
-              ctx.fillStyle = "rgba(230, 248, 255, 0.9)";
-              ctx.beginPath();
-              ctx.arc(px, py, 2.6, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          }
-        }
+        hand.style.transform = `translate3d(${mouse.x + offsetX}px, ${mouse.y + offsetY}px, 0) translate(-50%, -50%) rotate(${rotation}deg) scale(${hoverScale * scaleRef.current})`;
+        hand.style.opacity = hoverRef.current ? "1" : "0";
       }
 
       frameId = requestAnimationFrame(animate);
     };
 
-    const startX = window.innerWidth / 2;
-    const startY = window.innerHeight / 2;
-    targetRef.current = { x: startX, y: startY };
-    coreRefPos.current = { x: startX, y: startY };
-    ringRefPos.current = { x: startX, y: startY };
-    haloRefPos.current = { x: startX, y: startY };
-    lastRefPos.current = { x: startX, y: startY };
-
-    frameId = requestAnimationFrame(animate);
+    animate();
     return () => cancelAnimationFrame(frameId);
   }, [isCoarsePointer, reduceMotion]);
 
   if (isCoarsePointer) return null;
 
   return (
-    <>
-      <canvas className="cursor-tether" ref={tetherRef} />
-      <div className="custom-cursor" ref={rootRef}>
-        <div className="cursor-halo" ref={haloRef} />
-        <div className="cursor-ring" ref={ringRef} />
-        <div className="cursor-hand" ref={handRef}>
-          <FaHandPointer className="cursor-hand-icon" aria-hidden />
-        </div>
-        <div className="cursor-pulse" ref={pulseRef} />
-        <div className="cursor-ripple" ref={rippleRef} />
-        <div className="cursor-core" ref={coreRef} />
+    <div ref={rootRef} className="pointer-events-none fixed inset-0 z-[9999] opacity-0 transition-opacity duration-300">
+
+      {/* 1. Atmospheric Follower (High Blur) */}
+      <div
+        ref={followerRef}
+        className="absolute h-10 w-10 rounded-full bg-primary blur-[40px] will-change-transform"
+      />
+
+      {/* 2. VECTOR Architectural Ring (Vector-based to fix pixel issues) */}
+      <svg
+        ref={ringRef}
+        className="absolute h-8 w-8 will-change-transform transition-colors duration-500"
+        viewBox="0 0 32 32"
+        fill="none"
+      >
+        <circle
+          cx="16"
+          cy="16"
+          r="14"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      {/* 3. Neural Hand (Precision Interaction) */}
+      <div
+        ref={handRef}
+        className="absolute text-2xl text-accent opacity-0 will-change-transform drop-shadow-[0_0_12px_rgba(226,161,119,0.4)] transition-opacity duration-500"
+      >
+        <FaHandPointer />
       </div>
-    </>
+
+      {/* 4. Precision Hub Dot */}
+      <div
+        ref={dotRef}
+        className="absolute h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_var(--accent)] will-change-transform"
+      />
+    </div>
   );
 };
 

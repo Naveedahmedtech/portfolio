@@ -56,7 +56,7 @@ const ExperienceProjects: React.FC = () => {
                   {/* Google XYZ Outcomes */}
                   <div className="mt-12 grid gap-6 text-left sm:grid-cols-3">
                     {exp.outcomes.map((outcome, oIdx) => (
-                      <div key={oIdx} className="group relative rounded-2xl border border-white/5 bg-white/[0.02] p-6 backdrop-blur-sm transition-all hover:border-accent/20">
+                      <div key={oIdx} className="group relative rounded-2xl border border-primary/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-all hover:border-accent/30">
                         <div className="h-px w-8 bg-accent/40 mb-4" />
                         <p className="text-xs leading-relaxed text-textSecondary/60 group-hover:text-textSecondary transition-colors">
                           {outcome}
@@ -88,7 +88,7 @@ const ExperienceProjects: React.FC = () => {
                     key={project.title}
                     className="group relative h-[75vh] w-[85vw] flex-shrink-0 sm:w-[52rem]"
                   >
-                    <div className="relative h-full w-full overflow-hidden rounded-[3rem] border border-white/10 bg-[#0d0b09] shadow-2xl transition-all duration-700 hover:border-accent/40">
+                    <div className="relative h-full w-full overflow-hidden rounded-[3rem] border border-primary/15 bg-[#0d0b09] shadow-2xl transition-all duration-700 hover:border-accent/50">
 
                       {/* Interactive Visual Overlay */}
                       <div className="absolute inset-0 z-0 opacity-40 transition-all duration-700 group-hover:opacity-70 group-hover:scale-105">
@@ -104,7 +104,7 @@ const ExperienceProjects: React.FC = () => {
                         {/* Project Meta */}
                         <div className="flex items-start justify-between">
                           <div className="flex flex-col gap-5">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 backdrop-blur-md">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/5 backdrop-blur-md border border-primary/10">
                               <project.icon className="text-2xl text-primary/80" />
                             </div>
                             <h4 className="font-display text-4xl tracking-tight text-white transition-colors group-hover:text-accent lg:text-5xl">
@@ -113,11 +113,11 @@ const ExperienceProjects: React.FC = () => {
                           </div>
                           <div className="flex gap-4">
                             {project.live && (
-                              <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all hover:bg-accent/20 hover:scale-110">
+                              <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/5 border border-primary/10 transition-all hover:bg-accent/20 hover:scale-110">
                                 <FaExternalLinkAlt className="text-sm" />
                               </a>
                             )}
-                            <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 transition-all hover:bg-accent/20 hover:scale-110">
+                            <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/5 border border-primary/10 transition-all hover:bg-accent/20 hover:scale-110">
                               <FaGithub className="text-sm" />
                             </a>
                           </div>
@@ -131,7 +131,7 @@ const ExperienceProjects: React.FC = () => {
 
                           <div className="mt-8 flex flex-wrap gap-2.5">
                             {project.tags.slice(0, 7).map(tag => (
-                              <span key={tag} className="rounded-full border border-white/5 bg-white/[0.03] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-textSecondary/60 backdrop-blur-md">
+                              <span key={tag} className="rounded-full border border-primary/10 bg-white/[0.03] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-textSecondary/60 backdrop-blur-md transition-colors hover:border-accent/40">
                                 {tag}
                               </span>
                             ))}
@@ -168,11 +168,11 @@ const ExperienceProjects: React.FC = () => {
               initial={{ y: 50, scale: 0.95 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 50, scale: 0.95 }}
-              className="relative h-full w-full max-w-7xl overflow-hidden rounded-[3.5rem] border border-white/10 bg-[#0d0b09] shadow-[0_0_100px_rgba(0,0,0,1)]"
+              className="relative h-full w-full max-w-7xl overflow-hidden rounded-[3.5rem] border border-primary/20 bg-[#0d0b09] shadow-[0_0_100px_rgba(0,0,0,1)]"
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute right-10 top-10 z-[110] flex h-14 w-14 items-center justify-center rounded-full bg-white/5 backdrop-blur-md transition-all hover:bg-white/10 hover:rotate-90 hover:scale-110"
+                className="absolute right-10 top-10 z-[110] flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md transition-all hover:bg-accent/20 hover:rotate-90 hover:scale-110"
               >
                 <FaTimes className="text-xl" />
               </button>
@@ -191,7 +191,7 @@ const ExperienceProjects: React.FC = () => {
                 {/* Content Area */}
                 <div className="flex flex-1 flex-col overflow-y-auto p-12 lg:p-20">
                   <div className="mb-10 flex items-center gap-5">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 shadow-inner">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 border border-primary/20 shadow-inner">
                       <selectedProject.icon className="text-3xl text-primary" />
                     </div>
                     <div className="flex flex-col">
@@ -208,13 +208,13 @@ const ExperienceProjects: React.FC = () => {
 
                   <div className="mt-10 flex flex-wrap gap-3">
                     {selectedProject.tags.map(tag => (
-                      <span key={tag} className="rounded-xl border border-white/5 bg-white/[0.03] px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.1em] text-textSecondary/70">
+                      <span key={tag} className="rounded-xl border border-primary/10 bg-white/[0.03] px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.1em] text-textSecondary/70">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-12 h-px w-full bg-gradient-to-r from-white/10 to-transparent" />
+                  <div className="mt-12 h-px w-full bg-gradient-to-r from-primary/20 to-transparent" />
 
                   <p className="mt-12 text-xl leading-relaxed text-textSecondary/80 lg:text-2xl">
                     {selectedProject.description}

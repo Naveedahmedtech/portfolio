@@ -83,7 +83,7 @@ const Hero: React.FC = () => {
 
             {/* Strategic Signals Footer */}
             <div className="absolute bottom-12 left-0 w-full px-6 lg:px-16" data-hero-reveal="signals">
-              <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-8 border-t border-white/5 pt-8">
+              <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-8 border-t border-primary/10 pt-8">
                 {strategicSignals.map((signal) => (
                   <div key={signal.label} className="flex flex-col items-start gap-1">
                     <span className="text-[0.6rem] uppercase tracking-[0.3em] text-textSecondary/40">

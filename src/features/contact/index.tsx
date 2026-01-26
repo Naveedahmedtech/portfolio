@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-20 overflow-hidden rounded-[3rem] border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl lg:p-16"
+          className="mt-20 overflow-hidden rounded-[3rem] border border-primary/10 bg-white/[0.02] p-8 backdrop-blur-xl lg:p-16"
         >
           <AnimatePresence mode="wait">
             {status === "success" ? (
@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
                       {...register("name")}
                       type="text"
                       placeholder="Identified Name"
-                      className={`peer w-full border-b bg-transparent px-0 py-4 font-display text-2xl outline-none transition-all placeholder:text-transparent ${errors.name ? "border-red-500/50" : "border-white/10 focus:border-accent"
+                      className={`peer w-full border-b bg-transparent px-0 py-4 font-display text-2xl outline-none transition-all placeholder:text-transparent ${errors.name ? "border-red-500/50" : "border-primary/20 focus:border-accent"
                         }`}
                     />
                     <label className="absolute left-0 top-0 -translate-y-4 scale-75 text-[0.6rem] font-bold uppercase tracking-[0.3em] text-textSecondary/40 transition-all peer-placeholder-shown:translate-y-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-textSecondary/20 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-accent">
@@ -159,7 +159,7 @@ const Contact: React.FC = () => {
                       {...register("email")}
                       type="email"
                       placeholder="Communication Channel"
-                      className={`peer w-full border-b bg-transparent px-0 py-4 font-display text-2xl outline-none transition-all placeholder:text-transparent ${errors.email ? "border-red-500/50" : "border-white/10 focus:border-accent"
+                      className={`peer w-full border-b bg-transparent px-0 py-4 font-display text-2xl outline-none transition-all placeholder:text-transparent ${errors.email ? "border-red-500/50" : "border-primary/20 focus:border-accent"
                         }`}
                     />
                     <label className="absolute left-0 top-0 -translate-y-4 scale-75 text-[0.6rem] font-bold uppercase tracking-[0.3em] text-textSecondary/40 transition-all peer-placeholder-shown:translate-y-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-textSecondary/20 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-accent">
@@ -178,7 +178,7 @@ const Contact: React.FC = () => {
                     {...register("message")}
                     placeholder="Briefing Detail"
                     rows={4}
-                    className={`peer w-full border-b bg-transparent px-0 py-4 font-body text-lg outline-none transition-all placeholder:text-transparent ${errors.message ? "border-red-500/50" : "border-white/10 focus:border-accent"
+                    className={`peer w-full border-b bg-transparent px-0 py-4 font-body text-lg outline-none transition-all placeholder:text-transparent ${errors.message ? "border-red-500/50" : "border-primary/20 focus:border-accent"
                       }`}
                   />
                   <label className="absolute left-0 top-0 -translate-y-4 scale-75 text-[0.6rem] font-bold uppercase tracking-[0.3em] text-textSecondary/40 transition-all peer-placeholder-shown:translate-y-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-textSecondary/20 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-accent">

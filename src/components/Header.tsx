@@ -34,10 +34,13 @@ const Header: React.FC = () => {
           setMenuOpen(false);
         }
 
+        // Calibrated Offset for perfectly centered content
+        const offset = 120;
+
         gsap.to(window, {
           duration: 1.5,
           ease: "power4.inOut",
-          scrollTo: { y: target, autoKill: true },
+          scrollTo: { y: target, offsetY: offset, autoKill: true },
         });
       },
     []
@@ -48,6 +51,9 @@ const Header: React.FC = () => {
     const header = headerRef.current;
     const inner = innerRef.current;
     if (!header || !inner) return;
+
+    // Reset initial border to ensure no white artifact
+    gsap.set(inner, { border: "1px solid rgba(184, 106, 74, 0)" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -60,14 +66,14 @@ const Header: React.FC = () => {
     });
 
     tl.to(inner, {
-      padding: "0.75rem 1.5rem",
-      backgroundColor: "rgba(13, 11, 9, 0.7)",
-      backdropFilter: "blur(20px)",
+      padding: "0.85rem 3.5rem", // Increased horizontal padding
+      backgroundColor: "rgba(13, 11, 9, 0.9)", // Darker, more solid glass
+      backdropFilter: "blur(24px)",
       borderRadius: "100px",
-      border: "1px solid rgba(255, 255, 255, 0.08)",
-      width: "auto",
-      marginTop: "1.5rem",
-      boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+      border: "1px solid rgba(184, 106, 74, 0.2)", // Primary accent border
+      width: "max(500px, 75%)", // Ensure logo and nav stay separated
+      marginTop: "1.25rem",
+      boxShadow: "0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(184, 106, 74, 0.1)",
       duration: 1,
     });
 
@@ -122,21 +128,21 @@ const Header: React.FC = () => {
             onClick={handleNavClick("#hero")}
             className="group relative flex items-center gap-3 font-display text-sm uppercase tracking-[0.5em] text-textPrimary"
           >
-            <span className="relative z-10 transition-colors group-hover:text-accent">Naveed</span>
-            <div className="absolute -inset-x-2 -inset-y-1 scale-0 bg-white/5 blur-md transition-transform group-hover:scale-100" />
+            <span className="relative z-10 transition-all group-hover:text-accent group-hover:tracking-[0.6em]">Naveed</span>
+            <div className="absolute -inset-x-4 -inset-y-2 scale-0 bg-primary/5 blur-xl transition-transform group-hover:scale-100" />
           </a>
 
           {/* Desktop Nav */}
-          <nav ref={navRef} className="hidden items-center gap-10 text-[0.6rem] font-bold uppercase tracking-[0.4em] text-textSecondary/60 md:flex">
+          <nav ref={navRef} className="hidden items-center gap-12 text-[0.6rem] font-bold uppercase tracking-[0.4em] text-textSecondary/60 md:flex">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="group relative transition-colors hover:text-textPrimary"
+                className="group relative transition-all hover:text-textPrimary hover:tracking-[0.5em]"
                 onClick={handleNavClick(item.href)}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </nav>
@@ -144,7 +150,7 @@ const Header: React.FC = () => {
           {/* Toggle Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-md transition-all hover:border-accent/40"
+            className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md transition-all hover:border-accent/60 hover:bg-primary/10"
           >
             <div className="relative h-4 w-4">
               <FaPlus className={`absolute inset-0 transition-all duration-500 ${menuOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"}`} />
@@ -180,7 +186,7 @@ const Header: React.FC = () => {
             ))}
           </nav>
 
-          <div className="mt-20 border-t border-white/5 pt-10 text-center">
+          <div className="mt-20 border-t border-primary/10 pt-10 text-center">
             <p className="max-w-xs text-xs leading-relaxed text-textSecondary/30">
               Engineering visionary systems with a clean balance of performance and discipline.
             </p>

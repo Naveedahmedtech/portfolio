@@ -18,9 +18,16 @@
 }
 
 @layer base {
+
+  /* Global Cursor Hiding */
+  * {
+    cursor: none !important;
+  }
+
   body {
     @apply font-body text-textPrimary bg-background;
     color-scheme: dark;
+    overflow-x: hidden;
   }
 
   /* Premium Scrollbar Design */

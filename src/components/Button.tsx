@@ -12,7 +12,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-textPrimary shadow-[0_18px_36px_rgba(0,0,0,0.35)]",
-  ghost: "border border-white/20 bg-white/5 text-textPrimary backdrop-blur",
+  ghost: "border border-primary/20 bg-primary/5 text-textPrimary backdrop-blur",
 };
 
 const Button: React.FC<ButtonProps> = ({

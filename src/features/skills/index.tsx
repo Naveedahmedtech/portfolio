@@ -97,7 +97,7 @@ const Skills: React.FC = () => {
               </h3>
               <div className="flex flex-wrap justify-center gap-4 max-w-4xl" data-skill-stagger="impact-keywords">
                 {strategyKeywords.map((word) => (
-                  <span key={word} className="rounded-full border border-white/5 bg-white/[0.02] px-8 py-4 text-xs font-bold uppercase tracking-[0.4em] text-textSecondary/60 backdrop-blur-sm transition-all hover:border-accent/40 hover:text-textPrimary hover:scale-105">
+                  <span key={word} className="rounded-full border border-accent/10 bg-white/[0.02] px-8 py-4 text-xs font-bold uppercase tracking-[0.4em] text-textSecondary/60 backdrop-blur-sm transition-all hover:border-primary/40 hover:text-textPrimary hover:scale-105">
                     {word}
                   </span>
                 ))}

@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
     return (
         <footer
             ref={footerRef}
-            className="relative z-10 bg-black py-24 px-6 lg:px-16 border-t border-white/5 overflow-hidden"
+            className="relative z-10 bg-black py-24 px-6 lg:px-16 border-t border-primary/10 overflow-hidden"
         >
             {/* Premium Atmospheric Depth */}
             <div className="footer-glow absolute -bottom-20 left-1/2 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-accent/5 blur-[120px] opacity-0" />
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="group relative flex flex-col items-center gap-3 transition-all"
                             >
-                                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/5 bg-white/[0.02] transition-all group-hover:bg-accent group-hover:text-black hover:-translate-y-2">
+                                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/10 bg-white/[0.02] transition-all group-hover:bg-accent group-hover:text-black hover:-translate-y-2">
                                     <social.icon className="text-2xl" />
                                 </div>
                                 <span className="text-[0.55rem] font-bold uppercase tracking-[0.3em] text-textSecondary/0 transition-all group-hover:text-textSecondary/40 group-hover:translate-y-1">
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
 
                     {/* Status / Location */}
                     <div className="flex flex-col items-center lg:items-end">
-                        <div className="flex items-center gap-3 rounded-full border border-white/5 bg-white/[0.03] px-5 py-2 backdrop-blur-md">
+                        <div className="flex items-center gap-3 rounded-full border border-primary/10 bg-white/[0.03] px-5 py-2 backdrop-blur-md">
                             <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
                             <span className="text-[0.6rem] font-bold uppercase tracking-[0.4em] text-textSecondary/80">
                                 Orbital: Pakistan
@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
 
                 </div>
 
-                <div className="mt-20 flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-12 lg:flex-row">
+                <div className="mt-20 flex flex-col items-center justify-between gap-8 border-t border-primary/10 pt-12 lg:flex-row">
                     <p className="text-[0.6rem] uppercase tracking-[0.3em] text-textSecondary/20 font-medium">
                         &copy; {new Date().getFullYear()} — Engineered with discipline. High-Fidelity Execution.
                     </p>
