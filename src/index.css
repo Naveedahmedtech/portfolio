@@ -1,118 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Manrope:wght@300;400;500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background-light: #fdfdfd;
-  --surface-light: #f1f5f9;
-  --text-primary-light: #1f2937;     /* Slate-800 */
-  --text-secondary-light: #6b7280;   /* Gray-500 */
-  --primary-light: #2563eb;          /* Blue-600 */
-  --secondary-light: #7c3aed;        /* Violet-600 */
-  --accent-light: #10b981;           /* Emerald-500 */
-  --error-light: #dc2626;            /* Red-600 */
-
-  --background-dark: #0b1120;
-  --surface-dark: #1e293b;
-  --text-primary-dark: #e2e8f0;      /* Slate-200 */
-  --text-secondary-dark: #94a3b8;    /* Slate-400 */
-  --primary-dark: #3b82f6;           /* Blue-500 */
-  --secondary-dark: #a78bfa;         /* Violet-400 */
-  --accent-dark: #34d399;            /* Emerald-400 */
-  --error-dark: #f87171;             /* Red-400 */
+  --background: #0f0d0b;
+  --surface: #151210;
+  --text-primary: #f7f0e6;
+  --text-secondary: #c3b7a6;
+  --primary: #b86a4a;
+  --secondary: #d1b590;
+  --accent: #e2a177;
+  --error: #e0715e;
+  --font-display: "Fraunces", serif;
+  --font-body: "Manrope", sans-serif;
 }
 
-.light {
-  --background: var(--background-light);
-  --surface: var(--surface-light);
-  --text-primary: var(--text-primary-light);
-  --text-secondary: var(--text-secondary-light);
-  --primary: var(--primary-light);
-  --secondary: var(--secondary-light);
-  --accent: var(--accent-light);
-  --error: var(--error-light);
-}
+@layer base {
 
-.dark {
-  --background: var(--background-dark);
-  --surface: var(--surface-dark);
-  --text-primary: var(--text-primary-dark);
-  --text-secondary: var(--text-secondary-dark);
-  --primary: var(--primary-dark);
-  --secondary: var(--secondary-dark);
-  --accent: var(--accent-dark);
-  --error: var(--error-dark);
-}
-
-body {
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-}
-
-.image {
-  filter: blur(20px);
-  transition: filter 0.4s ease;
-}
-.image.loaded {
-  filter: blur(0);
-}
-
-
-/* For Webkit browsers (Chrome, Safari) */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #00051c;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #666;
-}
-
-/* For Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2e45ab #00051c00;
-}
-
-.scrollable-element {
-  overflow-y: auto;
-  max-height: 300px;
-}
-
-
-.glass-card {
-  background: rgba(var(--surface-rgb), 0.3);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--surface-rgb), 0.2);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  border-radius: 32px;
-  overflow: hidden;
-  position: relative;
-}
-
-@keyframes slide-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-10%);
+  /* Global Cursor Hiding */
+  * {
+    cursor: none !important;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.animate-slide-down {
-  animation: slide-down 0.25s ease-out;
+  body {
+    @apply font-body text-textPrimary bg-background;
+    color-scheme: dark;
+    overflow-x: hidden;
+  }
+
+  /* Premium Scrollbar Design */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(184, 106, 74, 0.1);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+  }
 }
