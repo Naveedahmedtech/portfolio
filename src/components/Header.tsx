@@ -7,6 +7,8 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+import MagneticWrapper from "./motion/MagneticWrapper";
+
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Skills", href: "#skills" },
@@ -123,40 +125,45 @@ const Header: React.FC = () => {
           ref={innerRef}
           className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8 transition-all duration-500 lg:px-16"
         >
-          <a
-            href="#hero"
-            onClick={handleNavClick("#hero")}
-            className="group relative flex items-center gap-3 font-display text-sm uppercase tracking-[0.5em] text-textPrimary"
-          >
-            <span className="relative z-10 transition-all group-hover:text-accent group-hover:tracking-[0.6em]">Naveed</span>
-            <div className="absolute -inset-x-4 -inset-y-2 scale-0 bg-primary/5 blur-xl transition-transform group-hover:scale-100" />
-          </a>
+          <MagneticWrapper range={50} sensitivity={0.3}>
+            <a
+              href="#hero"
+              onClick={handleNavClick("#hero")}
+              className="group relative flex items-center gap-3 font-display text-sm uppercase tracking-[0.5em] text-textPrimary"
+            >
+              <span className="relative z-10 transition-all group-hover:text-accent group-hover:tracking-[0.6em]">Naveed</span>
+              <div className="absolute -inset-x-4 -inset-y-2 scale-0 bg-primary/5 blur-xl transition-transform group-hover:scale-100" />
+            </a>
+          </MagneticWrapper>
 
           {/* Desktop Nav */}
           <nav ref={navRef} className="hidden items-center gap-12 text-[0.6rem] font-bold uppercase tracking-[0.4em] text-textSecondary/60 md:flex">
             {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="group relative transition-all hover:text-textPrimary hover:tracking-[0.5em]"
-                onClick={handleNavClick(item.href)}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
+              <MagneticWrapper key={item.href} range={40} sensitivity={0.4}>
+                <a
+                  href={item.href}
+                  className="group relative transition-all hover:text-textPrimary hover:tracking-[0.5em]"
+                  onClick={handleNavClick(item.href)}
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              </MagneticWrapper>
             ))}
           </nav>
 
           {/* Toggle Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md transition-all hover:border-accent/60 hover:bg-primary/10"
-          >
-            <div className="relative h-4 w-4">
-              <FaPlus className={`absolute inset-0 transition-all duration-500 ${menuOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"}`} />
-              <FaTimes className={`absolute inset-0 transition-all duration-500 ${menuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-45 scale-0 opacity-0"}`} />
-            </div>
-          </button>
+          <MagneticWrapper range={50} sensitivity={0.5}>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md transition-all hover:border-accent/60 hover:bg-primary/10"
+            >
+              <div className="relative h-4 w-4">
+                <FaPlus className={`absolute inset-0 transition-all duration-500 ${menuOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"}`} />
+                <FaTimes className={`absolute inset-0 transition-all duration-500 ${menuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-45 scale-0 opacity-0"}`} />
+              </div>
+            </button>
+          </MagneticWrapper>
         </div>
       </header>
 

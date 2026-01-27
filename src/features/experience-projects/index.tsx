@@ -5,7 +5,7 @@ import useExperienceScroll from "./hooks/useExperienceScroll";
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-// Premium 3D Tilt Card Component
+// Premium Luminous Cyber-Glass Card Component
 const ProjectCard: React.FC<{
   project: Project;
   index: number;
@@ -17,11 +17,11 @@ const ProjectCard: React.FC<{
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth spring animations
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
-  const glowX = useSpring(useTransform(mouseX, [-0.5, 0.5], [0, 100]), { stiffness: 300, damping: 30 });
-  const glowY = useSpring(useTransform(mouseY, [-0.5, 0.5], [0, 100]), { stiffness: 300, damping: 30 });
+  // Smooth spring animations for high-end feel
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { stiffness: 150, damping: 20 });
+  const shiftX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), { stiffness: 150, damping: 20 });
+  const shiftY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-20, 20]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -40,149 +40,126 @@ const ProjectCard: React.FC<{
   return (
     <motion.article
       ref={cardRef}
-      className="group relative h-[48vh] w-[88vw] flex-shrink-0 sm:w-[46rem]"
+      className="group relative h-[58vh] min-h-[420px] w-[85vw] flex-shrink-0 sm:w-[52rem]"
       style={{
-        perspective: 1200,
+        perspective: 2000,
         transformStyle: "preserve-3d",
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative h-full w-full overflow-hidden rounded-[2.5rem] border border-primary/10 bg-gradient-to-br from-[#0f0d0a] via-[#0d0b09] to-[#0a0908] shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-500"
+        className="relative h-full w-full overflow-hidden rounded-[3.5rem] border border-white/20 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-3xl shadow-[0_40px_120px_-20px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out group-hover:border-accent/50 group-hover:shadow-[0_60px_150px_-30px_rgba(0,0,0,1)]"
         style={{
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Animated Glow Border Effect */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 z-0 rounded-[2.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(226,161,119,0.15) 0%, transparent 50%)`,
-          }}
-        />
+        {/* Animated Accent Glows (Visible) */}
+        <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-[100px] transition-opacity duration-1000 group-hover:bg-accent/30" />
+        <div className="absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-primary/15 blur-[120px] transition-opacity duration-1000 group-hover:bg-primary/25" />
 
-        {/* Project Number Badge */}
-        <div className="absolute left-8 top-8 z-20 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 backdrop-blur-md border border-accent/20 shadow-lg">
-          <span className="font-display text-xl text-accent/90">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-        </div>
-
-        {/* Interactive Visual Layer */}
-        <div className="absolute inset-0 z-0">
-          {/* Parallax Image Container */}
+        {/* Visual Layer: Image with Vibrant Contrast */}
+        <div className="absolute inset-x-0 top-0 h-full w-full overflow-hidden">
           <motion.div
-            className="absolute inset-0 scale-110 transition-all duration-1000 group-hover:scale-100"
-            style={{ translateZ: -50 }}
+            className="absolute inset-0 h-full w-full scale-110 pointer-events-none"
+            style={{ x: shiftX, y: shiftY, z: -50 }}
           >
             <img
               src={project.image}
               alt={project.title}
-              className="h-full w-full object-cover opacity-30 grayscale transition-all duration-1000 group-hover:opacity-50 group-hover:grayscale-[50%]"
+              className="h-full w-full object-cover opacity-80 mix-blend-lighten transition-all duration-1000 group-hover:opacity-100 group-hover:scale-105"
             />
           </motion.div>
+          {/* Luminous Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0908] via-[#0a0908]/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/20 to-transparent" />
+        </div>
 
-          {/* Multi-layer Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0b09] via-[#0d0b09]/90 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b09] via-transparent to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0d0b09] to-transparent" />
+        {/* Floating Metadata */}
+        <div className="absolute left-10 top-10 z-20 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl lg:left-14 lg:top-14">
+          <span className="font-display text-2xl font-light tracking-tighter text-white/50 group-hover:text-accent transition-colors">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 flex h-full flex-col p-10 lg:p-12">
-
-          {/* Top Row: Icon + Links */}
+        <div className="relative z-10 flex h-full flex-col p-12 lg:p-20">
           <div className="flex items-start justify-between">
             <motion.div
-              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-lg border border-primary/15 shadow-xl"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-3xl border border-white/20 shadow-2xl lg:h-24 lg:w-24"
+              whileHover={{ scale: 1.1, rotate: -5 }}
+              style={{ transform: "translateZ(100px)" }}
             >
-              <project.icon className="text-3xl text-primary" />
+              <project.icon className="text-4xl text-primary lg:text-5xl" />
             </motion.div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-4" style={{ transform: "translateZ(80px)" }}>
               {project.live && (
                 <motion.a
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-primary/10 backdrop-blur-md transition-colors hover:bg-accent/20 hover:border-accent/40"
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-3xl transition-all hover:bg-accent/20 hover:border-accent/40"
+                  whileHover={{ y: -5, scale: 1.1 }}
                 >
-                  <FaExternalLinkAlt className="text-sm text-textSecondary/80" />
+                  <FaExternalLinkAlt className="text-lg text-white/70" />
                 </motion.a>
               )}
               <motion.a
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-primary/10 backdrop-blur-md transition-colors hover:bg-accent/20 hover:border-accent/40"
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-3xl transition-all hover:bg-accent/20 hover:border-accent/40"
+                whileHover={{ y: -5, scale: 1.1 }}
               >
-                <FaGithub className="text-sm text-textSecondary/80" />
+                <FaGithub className="text-2xl text-white/70" />
               </motion.a>
             </div>
           </div>
 
-          {/* Title with Animated Underline */}
-          <div className="mt-auto">
-            <h4 className="relative inline-block font-display text-4xl tracking-tight text-white lg:text-5xl">
+          <div className="mt-auto max-w-2xl" style={{ transform: "translateZ(120px)" }}>
+            <h4 className="font-display text-5xl font-light leading-none tracking-tighter text-white lg:text-7xl">
               {project.title}
-              <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-gradient-to-r from-accent to-primary transition-all duration-500 group-hover:w-full" />
             </h4>
+            <div className="mt-6 h-[2px] w-24 bg-gradient-to-r from-accent to-transparent transition-all duration-1000 group-hover:w-full" />
 
-            <p className="mt-6 line-clamp-2 max-w-lg text-base leading-relaxed text-textSecondary/70 lg:text-lg">
+            <p className="mt-8 text-lg font-light leading-relaxed text-white/60 lg:mt-12 lg:text-2xl">
               {project.description}
             </p>
 
-            {/* Tech Stack Pills */}
-            <div className="mt-8 flex flex-wrap gap-2">
-              {project.tags.slice(0, 5).map((tag, i) => (
-                <motion.span
+            <div className="mt-12 flex flex-wrap gap-4">
+              {project.tags.slice(0, 3).map((tag) => (
+                <span
                   key={tag}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="rounded-full border border-primary/10 bg-white/[0.02] px-4 py-2 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-textSecondary/50 backdrop-blur-sm transition-all hover:border-accent/30 hover:text-textSecondary"
+                  className="rounded-xl border border-white/10 bg-white/[0.05] px-5 py-2 text-[0.75rem] font-bold uppercase tracking-[0.25em] text-white/40 backdrop-blur-3xl"
                 >
                   {tag}
-                </motion.span>
+                </span>
               ))}
-              {project.tags.length > 5 && (
-                <span className="rounded-full border border-primary/5 bg-white/[0.01] px-4 py-2 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-textSecondary/30">
-                  +{project.tags.length - 5} more
+              {project.tags.length > 3 && (
+                <span className="flex items-center px-4 py-2 text-[0.75rem] font-bold text-white/10">
+                  + MORE
                 </span>
               )}
             </div>
 
-            {/* CTA Button */}
             <motion.button
               onClick={() => onSelect(project)}
-              className="group/btn mt-10 flex items-center gap-3 rounded-full bg-gradient-to-r from-accent/20 to-primary/10 px-6 py-3 text-[0.7rem] font-bold uppercase tracking-[0.3em] text-accent/90 backdrop-blur-sm border border-accent/20 transition-all hover:from-accent/30 hover:to-primary/20 hover:border-accent/40"
-              whileHover={{ scale: 1.02, x: 5 }}
-              whileTap={{ scale: 0.98 }}
+              className="group/cta mt-16 flex items-center gap-8 text-[0.8rem] font-bold uppercase tracking-[0.5em] text-accent lg:mt-24"
+              whileHover={{ x: 15 }}
             >
-              <span>Explore Project</span>
-              <motion.span
-                className="inline-block"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              >
-                <FaChevronRight className="text-xs" />
-              </motion.span>
+              <span className="relative">
+                EXPLORE BUILD
+                <span className="absolute -bottom-3 left-0 h-px w-0 bg-accent transition-all duration-700 group-hover/cta:w-full" />
+              </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/20 bg-accent/5 backdrop-blur-3xl transition-all group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50">
+                <FaChevronRight className="text-sm transition-transform group-hover/cta:translate-x-1" />
+              </div>
             </motion.button>
           </div>
         </div>
-
-        {/* Floating Accent Lines */}
-        <div className="pointer-events-none absolute right-0 top-1/4 h-40 w-px bg-gradient-to-b from-transparent via-accent/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute bottom-1/4 right-20 h-20 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
       </motion.div>
     </motion.article>
   );
@@ -198,50 +175,45 @@ const ExperienceProjects: React.FC = () => {
   useExperienceScroll({ sectionRef, triggerRef, containerRef, horizontalRef });
 
   return (
-    <section
-      id="experience-projects"
-      ref={sectionRef}
-      className="relative z-10 overflow-visible"
-    >
+    <section id="experience-projects" ref={sectionRef} className="relative z-10 overflow-visible">
       {/* Pinned Experience & Project Container */}
-      <div ref={triggerRef} className="relative h-[600vh] w-full">
-        <div
-          ref={containerRef}
-          className="sticky top-0 h-screen w-full overflow-hidden bg-transparent"
-        >
-          {/* Atmospheric Layer */}
-          <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute right-[10%] top-[10%] h-[60rem] w-[60rem] rounded-full bg-primary/10 blur-[180px]" />
-            <div className="absolute left-[5%] bottom-[5%] h-[50rem] w-[50rem] rounded-full bg-accent/5 blur-[150px]" />
+      <div ref={triggerRef} className="relative h-[800vh] w-full">
+        <div ref={containerRef} className="sticky top-0 h-screen w-full overflow-hidden bg-transparent">
+          {/* Atmospheric Vibe */}
+          <div className="absolute inset-0 z-0 opacity-30">
+            <div className="absolute right-[-15%] top-[-5%] h-[80rem] w-[80rem] rounded-full bg-primary/10 blur-[250px]" />
+            <div className="absolute left-[-10%] bottom-[-10%] h-[70rem] w-[70rem] rounded-full bg-accent/10 blur-[200px]" />
           </div>
 
           <div className="relative z-10 h-full w-full">
-
             {/* Phase 1: Professional Narrative (Vertical) */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 lg:px-16">
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 lg:px-20">
               {workExperience.map((exp, idx) => (
                 <div
                   key={exp.id}
                   data-exp-layer={idx + 1}
-                  className="absolute inset-x-0 mx-auto flex max-w-5xl flex-col items-center justify-center pt-20 text-center opacity-0 lg:pt-24"
+                  className="absolute inset-x-0 mx-auto flex max-w-6xl flex-col items-center justify-center pt-20 text-center opacity-0 lg:pt-28"
                 >
-                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.6em] text-accent/60">
-                    {exp.period} — {exp.location}
+                  <span className="text-[0.7rem] font-bold uppercase tracking-[1em] text-accent/30">
+                    {exp.period} // {exp.location}
                   </span>
-                  <h3 className="mt-6 font-display text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] tracking-tight text-textPrimary">
+                  <h3 className="mt-10 font-display text-[clamp(2.5rem,8vw,7rem)] font-light leading-none tracking-tighter text-white">
                     {exp.role} <br />
-                    <span className="text-secondary/30">at {exp.company}</span>
+                    <span className="opacity-20">at {exp.company}</span>
                   </h3>
-                  <p className="mt-8 max-w-2xl text-lg text-textSecondary/80">
-                    {exp.description}
+                  <p className="mt-12 max-w-3xl text-xl font-light leading-relaxed text-white/50 lg:text-3xl lg:leading-relaxed">
+                    "{exp.description}"
                   </p>
 
-                  {/* Google XYZ Outcomes */}
-                  <div className="mt-12 grid gap-6 text-left sm:grid-cols-3">
+                  {/* High-Fidelity Outcome Grid */}
+                  <div className="mt-16 grid gap-10 text-left sm:grid-cols-3 lg:mt-24">
                     {exp.outcomes.map((outcome, oIdx) => (
-                      <div key={oIdx} className="group relative rounded-2xl border border-primary/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-all hover:border-accent/30">
-                        <div className="h-px w-8 bg-accent/40 mb-4" />
-                        <p className="text-xs leading-relaxed text-textSecondary/60 group-hover:text-textSecondary transition-colors">
+                      <div
+                        key={oIdx}
+                        className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-10 backdrop-blur-3xl transition-all hover:border-accent/40 hover:bg-white/[0.05]"
+                      >
+                        <div className="h-px w-12 bg-accent/40 mb-8 group-hover:w-full transition-all duration-1000" />
+                        <p className="text-[0.9rem] font-light leading-relaxed text-white/40 group-hover:text-white/80 transition-colors">
                           {outcome}
                         </p>
                       </div>
@@ -251,243 +223,106 @@ const ExperienceProjects: React.FC = () => {
               ))}
             </div>
 
-            {/* Phase 2: Project Architecture (Horizontal) - ENHANCED */}
+            {/* Phase 2: Project Gallery (LUMINOUS Architecture) */}
             <div
               data-projects-layer
-              className="absolute inset-0 flex translate-y-full flex-col justify-start pt-[14vh] opacity-0 lg:pt-[16vh]"
+              className="absolute inset-0 flex translate-y-full flex-col justify-center opacity-0"
             >
-              {/* Section Header */}
-              <div className="mb-6 px-6 lg:mb-10 lg:px-20">
+              {/* Grand Header */}
+              <div className="mb-12 px-6 lg:mb-20 lg:px-[15vw]">
                 <motion.div
-                  className="flex items-end gap-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
+                  className="flex flex-col gap-6"
+                  initial={{ opacity: 0, x: -60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1.2, ease: "circOut" }}
                 >
-                  <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-none tracking-tighter text-textPrimary">
-                    Featured <br />
-                    <span className="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent italic">
-                      Systems.
+                  <span className="text-[0.7rem] font-bold uppercase tracking-[1.2em] text-accent/40 ml-2">TECH STRIKE</span>
+                  <h2 className="font-display text-[clamp(3rem,12vw,9rem)] font-light leading-[0.8] tracking-tighter text-white">
+                    DIGITAL <br />
+                    <span className="bg-gradient-to-r from-accent via-primary/50 to-accent bg-clip-text text-transparent italic font-serif">
+                      CRAFT.
                     </span>
                   </h2>
-                  <div className="hidden pb-4 lg:block">
-                    <p className="text-sm text-textSecondary/50 max-w-xs">
-                      Architected solutions spanning enterprise platforms, AI integrations, and creative tools.
-                    </p>
-                  </div>
                 </motion.div>
-
-                {/* Progress Indicator */}
-                <div className="mt-6 flex items-center gap-4">
-                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.4em] text-accent/50">
-                    Scroll to explore
-                  </span>
-                  <motion.div
-                    className="flex gap-1"
-                    animate={{ x: [0, 8, 0] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                  >
-                    <FaChevronRight className="text-xs text-accent/40" />
-                    <FaChevronRight className="text-xs text-accent/30" />
-                    <FaChevronRight className="text-xs text-accent/20" />
-                  </motion.div>
-                </div>
               </div>
 
-              {/* Horizontal Project Scroll */}
+              {/* Stabilized Horizontal Gallery */}
               <div
                 ref={horizontalRef}
-                className="flex items-center gap-10 px-6 lg:px-20 pr-[70vw]"
+                className="flex items-center gap-32 pl-[20vw] pr-[80vw]"
               >
                 {projects.map((project, index) => (
-                  <ProjectCard
-                    key={project.title}
-                    project={project}
-                    index={index}
-                    onSelect={setSelectedProject}
-                  />
+                  <ProjectCard key={project.title} project={project} index={index} onSelect={setSelectedProject} />
                 ))}
               </div>
-            </div>
 
+              {/* Minimal Scroll Hint */}
+              <div className="absolute bottom-20 left-[15vw] flex items-center gap-12 opacity-20">
+                <div className="h-[2px] w-48 bg-gradient-to-r from-white to-transparent" />
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.8em] text-white">Nav System Active</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Project Detail Overlay - Enhanced */}
+      {/* Project Detail Overlay - Enhanced Luminous Design */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 p-4 backdrop-blur-3xl lg:p-16"
+            className="fixed inset-0 z-[600] flex items-center justify-center bg-[#0a0908]/98 p-6 backdrop-blur-[50px] lg:p-24"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              initial={{ y: 80, scale: 0.9, opacity: 0 }}
+              initial={{ y: 120, scale: 0.9, opacity: 0 }}
               animate={{ y: 0, scale: 1, opacity: 1 }}
-              exit={{ y: 80, scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative h-full w-full max-w-7xl overflow-hidden rounded-[2.5rem] border border-primary/15 bg-gradient-to-br from-[#0f0d0a] via-[#0d0b09] to-[#0a0908] shadow-[0_0_150px_rgba(0,0,0,1)]"
+              exit={{ y: 120, scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 180, damping: 28 }}
+              className="relative h-full w-full max-w-[120rem] overflow-hidden rounded-[4rem] border border-white/10 bg-[#0a0908] shadow-[0_0_250px_rgba(0,0,0,1)]"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Animated Close Button */}
-              <motion.button
+              <button
                 onClick={() => setSelectedProject(null)}
-                initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 400, damping: 20 }}
-                className="absolute right-6 top-6 z-[110] flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-primary/15 backdrop-blur-xl transition-all hover:bg-accent/20 hover:border-accent/40 hover:rotate-90 hover:scale-110 lg:right-10 lg:top-10 lg:h-14 lg:w-14"
+                className="absolute right-12 top-12 z-[610] flex h-20 w-20 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl transition-all hover:bg-accent/20 hover:scale-110"
               >
-                <FaTimes className="text-lg" />
-              </motion.button>
+                <FaTimes className="text-2xl text-white/40" />
+              </button>
 
               <div className="flex h-full flex-col lg:flex-row">
-                {/* Visual Area with Parallax Effect */}
-                <motion.div
-                  className="relative h-[35%] w-full overflow-hidden lg:h-full lg:w-[50%]"
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.6 }}
-                >
-                  <motion.img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="h-full w-full object-cover"
-                    initial={{ scale: 1.2 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                  />
-                  {/* Premium Gradient Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b09] via-[#0d0b09]/30 to-transparent lg:bg-gradient-to-r" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />
+                <div className="relative h-1/2 w-full overflow-hidden lg:h-full lg:w-[60%]">
+                  <img src={selectedProject.image} alt={selectedProject.title} className="h-full w-full object-cover grayscale-[30%] opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0a0908] via-transparent to-transparent" />
+                </div>
 
-                  {/* Floating Project Number */}
-                  <motion.div
-                    className="absolute bottom-6 left-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-black/50 backdrop-blur-xl border border-accent/20 lg:bottom-10 lg:left-10 lg:h-20 lg:w-20"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <span className="font-display text-2xl text-accent lg:text-3xl">
-                      {String(projects.findIndex(p => p.title === selectedProject.title) + 1).padStart(2, '0')}
-                    </span>
-                  </motion.div>
-                </motion.div>
-
-                {/* Content Area with Staggered Animations */}
-                <motion.div
-                  className="flex flex-1 flex-col overflow-y-auto p-8 lg:p-16"
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                  {/* Header */}
-                  <motion.div
-                    className="mb-8 flex items-center gap-4"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/15 shadow-lg">
-                      <selectedProject.icon className="text-2xl text-primary" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[0.6rem] font-bold uppercase tracking-[0.5em] text-accent/60">
-                        System Architecture
-                      </span>
-                      <span className="text-[0.65rem] text-textSecondary/30">Technical Deep-Dive</span>
-                    </div>
-                  </motion.div>
-
-                  {/* Title */}
-                  <motion.h3
-                    className="font-display text-4xl leading-[0.95] tracking-tighter text-textPrimary lg:text-7xl"
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.35 }}
-                  >
-                    {selectedProject.title}
-                  </motion.h3>
-
-                  {/* Tags with Stagger */}
-                  <motion.div
-                    className="mt-8 flex flex-wrap gap-2"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    {selectedProject.tags.map((tag, i) => (
-                      <motion.span
-                        key={tag}
-                        className="rounded-xl border border-primary/10 bg-white/[0.02] px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.15em] text-textSecondary/60 backdrop-blur-sm transition-all hover:border-accent/30"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.5 + i * 0.03 }}
-                      >
-                        {tag}
-                      </motion.span>
+                <div className="flex flex-1 flex-col overflow-y-auto p-16 lg:p-32">
+                  <span className="text-[0.75rem] font-bold uppercase tracking-[1.2em] text-accent/40">TECH SPECIFICATIONS</span>
+                  <h3 className="mt-10 font-display text-6xl font-light tracking-tighter text-white lg:text-9xl">{selectedProject.title}</h3>
+                  <div className="mt-16 flex flex-wrap gap-4">
+                    {selectedProject.tags.map((tag) => (
+                      <span key={tag} className="rounded-2xl border border-white/10 bg-white/[0.05] px-8 py-4 text-[0.9rem] font-bold uppercase tracking-widest text-white/30">{tag}</span>
                     ))}
-                  </motion.div>
+                  </div>
+                  <p className="mt-20 text-2xl font-light leading-relaxed text-white/50 lg:text-3xl lg:leading-relaxed">{selectedProject.description}</p>
 
-                  {/* Divider */}
-                  <motion.div
-                    className="mt-10 h-px w-full bg-gradient-to-r from-accent/20 via-primary/10 to-transparent"
-                    initial={{ scaleX: 0, originX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
-                  />
-
-                  {/* Description */}
-                  <motion.p
-                    className="mt-10 text-base leading-relaxed text-textSecondary/70 lg:text-xl lg:leading-relaxed"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                  >
-                    {selectedProject.description}
-                  </motion.p>
-
-                  {/* Action Buttons */}
-                  <motion.div
-                    className="mt-auto flex flex-col gap-4 pt-12 sm:flex-row sm:items-center sm:gap-8"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.8 }}
-                  >
+                  <div className="mt-auto flex gap-12 pt-28">
                     {selectedProject.live && (
-                      <motion.a
-                        href={selectedProject.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-accent/20 to-primary/10 px-6 py-3 text-[0.7rem] font-bold uppercase tracking-[0.4em] text-accent/90 backdrop-blur-sm border border-accent/20 transition-all hover:from-accent/30 hover:to-primary/20"
-                        whileHover={{ scale: 1.02, x: 5 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        View Live
-                        <FaExternalLinkAlt className="text-xs transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                      </motion.a>
+                      <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 text-[0.85rem] font-bold uppercase tracking-[0.6em] text-accent hover:text-white transition-all">
+                        DEPLOYED SITE <FaExternalLinkAlt />
+                      </a>
                     )}
-                    <motion.a
-                      href={selectedProject.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-3 text-[0.7rem] font-bold uppercase tracking-[0.4em] text-textSecondary/60 transition-all hover:text-textSecondary"
-                      whileHover={{ x: 5 }}
-                    >
-                      Source Code
-                      <FaGithub className="text-sm transition-transform group-hover:scale-110" />
-                    </motion.a>
-                  </motion.div>
-                </motion.div>
+                    <a href={selectedProject.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 text-[0.85rem] font-bold uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">
+                      REPOSITORY <FaGithub />
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 };

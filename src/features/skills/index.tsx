@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import useSkillsScrollReveal from "./hooks/useSkillsScrollReveal";
+import MagneticWrapper from "../../components/motion/MagneticWrapper";
 
 const managerSkills = [
   "SDLC Governance",
@@ -97,9 +98,11 @@ const Skills: React.FC = () => {
               </h3>
               <div className="flex flex-wrap justify-center gap-4 max-w-4xl" data-skill-stagger="impact-keywords">
                 {strategyKeywords.map((word) => (
-                  <span key={word} className="rounded-full border border-accent/10 bg-white/[0.02] px-8 py-4 text-xs font-bold uppercase tracking-[0.4em] text-textSecondary/60 backdrop-blur-sm transition-all hover:border-primary/40 hover:text-textPrimary hover:scale-105">
-                    {word}
-                  </span>
+                  <MagneticWrapper key={word} range={60} sensitivity={0.4}>
+                    <span className="rounded-full border border-accent/10 bg-white/[0.02] px-8 py-4 text-xs font-bold uppercase tracking-[0.4em] text-textSecondary/60 backdrop-blur-sm transition-all hover:border-primary/40 hover:text-textPrimary hover:scale-105">
+                      {word}
+                    </span>
+                  </MagneticWrapper>
                 ))}
               </div>
               <p className="max-w-xl text-lg text-textSecondary/40 italic" data-skill-reveal="impact-text">

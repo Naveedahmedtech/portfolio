@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import MagneticWrapper from "./motion/MagneticWrapper";
 
 type ButtonVariant = "primary" | "ghost";
 type ButtonEffect = "magneticPull";
@@ -7,151 +8,146 @@ type ButtonEffect = "magneticPull";
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   effect?: ButtonEffect;
-};
-
-const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    "bg-primary text-textPrimary shadow-[0_18px_36px_rgba(0,0,0,0.35)]",
-  ghost: "border border-primary/20 bg-primary/5 text-textPrimary backdrop-blur",
+  magneticRange?: number;
+  magneticSensitivity?: number;
 };
 
 const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   effect = "magneticPull",
+  magneticRange = 120,
+  magneticSensitivity = 0.45,
   className = "",
   children,
   ...rest
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const boundsRef = useRef<DOMRect | null>(null);
-  const liftRef = useRef(0);
-  const xToRef = useRef<((value: number) => void) | null>(null);
-  const yToRef = useRef<((value: number) => void) | null>(null);
-  const scaleToRef = useRef<((value: number) => void) | null>(null);
-  const baseShadowRef = useRef("");
+  const wipeRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const text1Ref = useRef<HTMLSpanElement>(null);
+  const text2Ref = useRef<HTMLSpanElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const button = buttonRef.current;
-    if (!button) return;
-
-    const baseShadow =
-      variant === "primary"
-        ? "0 18px 36px rgba(0,0,0,0.35)"
-        : "0 0 0 rgba(0,0,0,0)";
-    baseShadowRef.current = baseShadow;
-
-    gsap.set(button, {
-      x: 0,
-      y: 0,
-      scale: 1,
-      filter: "brightness(1)",
-      boxShadow: baseShadow,
-    });
-    xToRef.current = gsap.quickTo(button, "x", {
-      duration: 0.35,
-      ease: "power3.out",
-    });
-    yToRef.current = gsap.quickTo(button, "y", {
-      duration: 0.35,
-      ease: "power3.out",
-    });
-    scaleToRef.current = gsap.quickTo(button, "scale", {
-      duration: 0.35,
-      ease: "power3.out",
-    });
+    gsap.set(wipeRef.current, { x: "-110%", skewX: -25 });
+    gsap.set(text2Ref.current, { y: "110%" }); // Start slightly lower than 100% for safety
+    gsap.set(glowRef.current, { opacity: 0, scale: 0 });
 
     return () => {
-      gsap.killTweensOf(button);
+      gsap.killTweensOf([
+        wipeRef.current,
+        glowRef.current,
+        text1Ref.current,
+        text2Ref.current,
+        textContainerRef.current,
+        buttonRef.current
+      ]);
     };
-  }, [variant]);
+  }, []);
 
-  const handleEnter = useCallback(
-    (event: React.PointerEvent<HTMLButtonElement>) => {
-      const button = buttonRef.current;
-      if (!button) return;
-      boundsRef.current = button.getBoundingClientRect();
-      liftRef.current = -4;
-      gsap.to(button, {
-        y: liftRef.current,
-        scale: 1.02,
-        filter: "brightness(1.06)",
-        boxShadow: "0 20px 38px rgba(0,0,0,0.4)",
-        duration: 0.35,
-        ease: "power3.out",
-      });
+  const handleEnter = useCallback(() => {
+    // 1. Sharp Skewed Wipe
+    gsap.fromTo(wipeRef.current,
+      { x: "-110%" },
+      { x: "110%", duration: 0.8, ease: "expo.out" }
+    );
 
-      if (effect !== "magneticPull") return;
-      const bounds = boundsRef.current;
-      if (!bounds) return;
-      const relX = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const relY = (event.clientY - bounds.top) / bounds.height - 0.5;
-      xToRef.current?.(relX * 12);
-      yToRef.current?.(liftRef.current + relY * 8);
-    },
-    [effect]
-  );
+    // 2. Rolling Text Transition (Marquee)
+    gsap.to(text1Ref.current, { y: "-110%", duration: 0.6, ease: "power4.inOut" });
+    gsap.to(text2Ref.current, { y: "0%", duration: 0.6, ease: "power4.inOut" });
+
+    // 3. Glow Reveal
+    gsap.to(glowRef.current, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+
+    // 4. Subtle Scale Lift
+    gsap.to(buttonRef.current, { scale: 1.05, duration: 0.4, ease: "power2.out" });
+  }, []);
 
   const handleLeave = useCallback(() => {
-    const button = buttonRef.current;
-    if (!button) return;
-    boundsRef.current = null;
-    liftRef.current = 0;
-    xToRef.current?.(0);
-    yToRef.current?.(0);
-    scaleToRef.current?.(1);
-    gsap.to(button, {
-      y: 0,
-      scale: 1,
-      filter: "brightness(1)",
-      boxShadow: baseShadowRef.current,
-      duration: 0.35,
+    // 1. Reset Text (Roll Back)
+    gsap.to(text1Ref.current, { y: "0%", duration: 0.5, ease: "power4.inOut" });
+    gsap.to(text2Ref.current, { y: "110%", duration: 0.5, ease: "power4.inOut" });
+
+    // 2. Glow Hide
+    gsap.to(glowRef.current, { opacity: 0, scale: 0, duration: 0.4, ease: "power2.in" });
+
+    // 3. Reset Scale and Position
+    gsap.to(buttonRef.current, { scale: 1, duration: 0.4, ease: "power2.inOut" });
+
+    // Reset text container parallax
+    gsap.to(textContainerRef.current, { x: 0, y: 0, duration: 0.6, ease: "power2.inOut" });
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // A. Move inner glow relative to mouse
+    gsap.to(glowRef.current, {
+      x,
+      y,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+
+    // B. Micro-Parallax "Shifter" for the Text Container
+    // This makes the text move slightly towards the cursor inside the button
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const deltaX = (x - centerX) * 0.25; // Increased sensitivity for "realism"
+    const deltaY = (y - centerY) * 0.25;
+
+    gsap.to(textContainerRef.current, {
+      x: deltaX,
+      y: deltaY,
+      duration: 0.5,
       ease: "power2.out",
     });
   }, []);
 
-  const handleMove = useCallback(
-    (event: React.PointerEvent<HTMLButtonElement>) => {
-      if (effect !== "magneticPull") return;
-      const button = buttonRef.current;
-      if (!button) return;
-      const bounds = boundsRef.current ?? button.getBoundingClientRect();
-      boundsRef.current = bounds;
-      const relX = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const relY = (event.clientY - bounds.top) / bounds.height - 0.5;
-      xToRef.current?.(relX * 12);
-      yToRef.current?.(liftRef.current + relY * 8);
-    },
-    [effect]
-  );
-
-  const handlePress = useCallback(() => {
-    const button = buttonRef.current;
-    if (!button) return;
-    scaleToRef.current?.(0.97);
-  }, []);
-
-  const handleRelease = useCallback(() => {
-    const button = buttonRef.current;
-    if (!button) return;
-    scaleToRef.current?.(1);
-  }, []);
-
-  return (
+  const buttonContent = (
     <button
       ref={buttonRef}
-      data-effect={effect}
-      className={`button-premium rounded-full px-7 py-3 text-sm font-semibold uppercase tracking-[0.25em] ${variantClasses[variant]} ${className}`}
-      onPointerEnter={handleEnter}
-      onPointerLeave={handleLeave}
-      onPointerMove={handleMove}
-      onPointerDown={handlePress}
-      onPointerUp={handleRelease}
-      onPointerCancel={handleRelease}
+      className={`group relative overflow-hidden rounded-full border px-8 py-4 text-[0.65rem] font-bold uppercase tracking-[0.3em] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(184,106,74,0.25)] ${variant === "primary"
+          ? "bg-primary border-primary/20 text-white"
+          : "bg-surface/40 border-primary/30 text-textPrimary backdrop-blur-md"
+        } ${className}`}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onMouseMove={handleMouseMove}
       {...rest}
     >
-      <span className="button-content">{children}</span>
+      {/* 1. Sharp Skewed Wipe Layer */}
+      <div ref={wipeRef} className="absolute inset-y-0 left-0 w-full bg-white/20 pointer-events-none z-0" />
+
+      {/* 2. Interactive Spotlight Glow */}
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 rounded-full bg-white/20 blur-[50px] z-0"
+      />
+
+      {/* 3. Rolling Text Container - Compact height (h-5 = 1.25rem / 20px) */}
+      <div ref={textContainerRef} className="relative z-10 h-5 overflow-hidden pointer-events-none flex flex-col items-center justify-center">
+        <span ref={text1Ref} className="flex items-center justify-center gap-3 will-change-transform">
+          {children}
+        </span>
+        <span ref={text2Ref} className="absolute flex items-center justify-center gap-3 will-change-transform">
+          {children}
+        </span>
+      </div>
     </button>
   );
+
+  if (effect === "magneticPull") {
+    return (
+      <MagneticWrapper range={magneticRange} sensitivity={magneticSensitivity}>
+        {buttonContent}
+      </MagneticWrapper>
+    );
+  }
+
+  return buttonContent;
 };
 
 export default Button;

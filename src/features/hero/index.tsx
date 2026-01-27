@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import useHeroTextReveal from "./hooks/useHeroTextReveal";
+import useHeroInteractiveText from "./hooks/useHeroInteractiveText";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Button from "../../components/Button";
 
@@ -16,6 +17,7 @@ const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useHeroTextReveal({ sectionRef, triggerRef, containerRef });
+  useHeroInteractiveText({ containerRef });
 
   return (
     <ErrorBoundary>
@@ -32,22 +34,25 @@ const Hero: React.FC = () => {
           >
             {/* 3D canvas is now handled by GlobalCanvas */}
 
-            <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-6 text-center lg:px-16">
+            <div
+              className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-6 text-center lg:px-16"
+              style={{ perspective: "1200px" }}
+            >
 
               {/* Phase 1: Identity & Role */}
-              <div data-hero-layer="1" className="absolute inset-0 flex flex-col items-center justify-center">
+              <div data-hero-layer="1" className="absolute inset-0 flex flex-col items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
                 <span className="text-[0.65rem] font-bold uppercase tracking-[0.6em] text-textSecondary/40" data-hero-reveal="intro-tag">
                   Engineering Leadership
                 </span>
-                <h1 className="mt-8 font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.85] tracking-tighter" data-hero-reveal="intro-title">
+                <h1 className="mt-8 font-display text-[clamp(3rem,8vw,8.5rem)] leading-[0.85] tracking-tighter" data-hero-reveal="intro-title">
                   AI Orchestrator <br />
                   <span className="text-primary">& Software Engineer</span>
                 </h1>
               </div>
 
               {/* Phase 2: Value & Philosophy */}
-              <div data-hero-layer="2" className="absolute inset-0 flex hidden flex-col items-center justify-center">
-                <h2 className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight text-textPrimary" data-hero-reveal="value-title">
+              <div data-hero-layer="2" className="absolute inset-0 flex hidden flex-col items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
+                <h2 className="font-display text-[clamp(2.2rem,6vw,6rem)] leading-[0.95] tracking-tight text-textPrimary" data-hero-reveal="value-title">
                   Strategic Systems. <br />
                   <span className="text-secondary">People-First Leadership.</span>
                 </h2>
@@ -58,18 +63,19 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Phase 3: Final Call to Action */}
-              <div data-hero-layer="3" className="absolute inset-0 flex hidden flex-col items-center justify-center">
-                <h3 className="font-display text-[clamp(2rem,5vw,4.5rem)] text-textPrimary" data-hero-reveal="cta-title">
+              <div data-hero-layer="3" className="absolute inset-0 flex hidden flex-col items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
+                <h3 className="font-display text-[clamp(2.5rem,6vw,5rem)] text-textPrimary" data-hero-reveal="cta-title">
                   Ready to Orchestrate?
                 </h3>
-                <div className="mt-12 flex flex-col gap-6 sm:flex-row" data-hero-reveal="cta-btns">
-                  <Button variant="primary" effect="magneticPull">
+                <div className="mt-12 flex flex-col gap-8 sm:flex-row" data-hero-reveal="cta-btns">
+                  <Button variant="primary" effect="magneticPull" magneticRange={80}>
                     View Systems
                   </Button>
                   <Button
                     variant="ghost"
                     effect="magneticPull"
-                    className="border-accent/70 bg-transparent text-accent"
+                    magneticRange={80}
+                    className="border-accent/40 bg-transparent text-accent"
                   >
                     Contact Me
                   </Button>
