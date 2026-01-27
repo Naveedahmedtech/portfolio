@@ -32,10 +32,10 @@ const useHeroInteractiveText = ({ containerRef }: InteractiveTextParams) => {
                     // Store center position relative to viewport
                     x: rect.left + rect.width / 2,
                     y: rect.top + rect.height / 2,
-                    setX: gsap.quickSetter(char, "x", "px"),
-                    setY: gsap.quickSetter(char, "y", "px"),
-                    setRX: gsap.quickSetter(char, "rotateX", "deg"),
-                    setRY: gsap.quickSetter(char, "rotateY", "deg"),
+                    setX: gsap.quickSetter(char, "x", "px") as (v: number) => void,
+                    setY: gsap.quickSetter(char, "y", "px") as (v: number) => void,
+                    setRX: gsap.quickSetter(char, "rotateX", "deg") as (v: number) => void,
+                    setRY: gsap.quickSetter(char, "rotateY", "deg") as (v: number) => void,
                 };
             });
         };
