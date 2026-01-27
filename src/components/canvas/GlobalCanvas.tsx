@@ -13,7 +13,8 @@ import { useScrollProgress } from '../../hooks/useScrollProgress';
 // SHARED PARTICLE SYSTEM - Morphs between section states
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const PARTICLE_COUNT = 2500;
+const isMobile = typeof window !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const PARTICLE_COUNT = isMobile ? 800 : 2500;
 
 interface ParticleState {
     // Hero: Donut ring around center
@@ -250,15 +251,16 @@ const MorphingAura: React.FC = () => {
             <mesh ref={torusRef}>
                 <torusGeometry args={[1.5, 0.06, 32, 128]} />
                 <MeshTransmissionMaterial
-                    backside
-                    samples={6}
+                    backside={!isMobile}
+                    samples={isMobile ? 3 : 6}
+                    resolution={isMobile ? 256 : 1024}
                     thickness={0.15}
-                    chromaticAberration={0.03}
-                    anisotropy={0.15}
+                    chromaticAberration={isMobile ? 0.01 : 0.03}
+                    anisotropy={isMobile ? 0.05 : 0.15}
                     distortion={0.25}
                     distortionScale={0.35}
-                    temporalDistortion={0.08}
-                    iridescence={0.7}
+                    temporalDistortion={isMobile ? 0.02 : 0.08}
+                    iridescence={isMobile ? 0.4 : 0.7}
                     iridescenceIOR={1.15}
                     iridescenceThicknessRange={[0, 800]}
                     color="#f7f0e6"

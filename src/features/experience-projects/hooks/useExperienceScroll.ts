@@ -91,28 +91,37 @@ const useExperienceScroll = ({
                 projectStartTime
             );
 
-            // 3. Horizontal Project Scroll
-            // We calculate the scroll width
-            const scrollWidth = horizontal.scrollWidth - window.innerWidth;
+            // 3. Horizontal Project Scroll - LUMINOUS ARCHITECTURE
+            // Architecture Fix: Calculate scroll width to strictly respect 20vw offset
+            const calculateScroll = () => {
+                const totalWidth = horizontal.scrollWidth;
+                const viewportWidth = window.innerWidth;
+                // scrollWidth includes pl-[20vw] and pr-[80vw]
+                // We want to stop exactly when the last card is fully on screen
+                return totalWidth - viewportWidth;
+            };
 
+            // DWELL PHASE: Let the user see the "Digital Craft" and 1st project static
+            // horizontal scroll starts at projectStartTime + 6.5 (2.5 reveal + 4.0 dwell)
             tl.to(
                 horizontal,
                 {
-                    x: -scrollWidth,
-                    duration: 10,
+                    x: () => -calculateScroll(),
+                    duration: 20, // High-end cinematic pacing
                     ease: "none",
                 },
-                projectStartTime + 2
+                projectStartTime + 6.5
             );
 
-            // Project Card Micro-animations (staggered scaling as they pass by)
+            // Project Card Micro-animations (staggered scaling and blue-fade)
             projectArticles.forEach((article, i) => {
                 tl.from(article, {
                     scale: 0.9,
-                    opacity: 0.5,
-                    duration: 1,
+                    opacity: 0,
+                    filter: "blur(20px)",
+                    duration: 3,
                     ease: "power2.out"
-                }, projectStartTime + 2 + (i * (10 / projectArticles.length)));
+                }, projectStartTime + 7 + (i * (10 / projectArticles.length)));
             });
 
             // Final Fade Out of the whole section

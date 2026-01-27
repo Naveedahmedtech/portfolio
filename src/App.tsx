@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import ContextMenu from "./components/ContextMenu";
@@ -9,6 +9,7 @@ import Skills from "./features/skills";
 import ExperienceProjects from "./features/experience-projects";
 import Contact from "./features/contact";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,7 +17,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
+    // Scroll to top on refresh
+    window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -27,30 +33,23 @@ function App() {
       touchMultiplier: 2,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
+    const tickerFunc = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(tickerFunc);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(raf);
+      gsap.ticker.remove(tickerFunc);
     };
   }, []);
 
   return (
     <ScrollProgressProvider>
-      <div className="min-h-screen bg-background text-textPrimary selection:bg-accent selection:text-white">
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      <div className={`min-h-screen bg-background text-textPrimary transition-opacity duration-1000 cursor-none ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         {/* Global 3D Canvas - Fixed position, spans all sections */}
         <GlobalCanvas />
 

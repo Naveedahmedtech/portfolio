@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaGithub, FaLinkedin, FaTwitter, FaArrowUp } from "react-icons/fa";
 import { GITHUB_URL, LINKEDIN_URL } from "../constants";
+import MagneticWrapper from "./motion/MagneticWrapper";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,9 +67,11 @@ const Footer: React.FC = () => {
 
                     {/* Logo / Brand */}
                     <div className="flex flex-col items-center lg:items-start">
-                        <h2 className="font-display text-4xl tracking-tighter text-textPrimary">
-                            Naveed <span className="text-secondary">Ahmed.</span>
-                        </h2>
+                        <MagneticWrapper range={50} sensitivity={0.3}>
+                            <h2 className="font-display text-4xl tracking-tighter text-textPrimary">
+                                Naveed <span className="text-secondary">Ahmed.</span>
+                            </h2>
+                        </MagneticWrapper>
                         <p className="mt-4 text-[0.7rem] font-bold uppercase tracking-[0.6em] text-textSecondary/20">
                             Architecting Orchestrated Excellence
                         </p>
@@ -81,20 +84,21 @@ const Footer: React.FC = () => {
                             { icon: FaLinkedin, href: LINKEDIN_URL, label: "Strategy" },
                             { icon: FaTwitter, href: "https://twitter.com", label: "Broadcast" }
                         ].map((social) => (
-                            <a
-                                key={social.href}
-                                href={social.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative flex flex-col items-center gap-3 transition-all"
-                            >
-                                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/10 bg-white/[0.02] transition-all group-hover:bg-accent group-hover:text-black hover:-translate-y-2">
-                                    <social.icon className="text-2xl" />
-                                </div>
-                                <span className="text-[0.55rem] font-bold uppercase tracking-[0.3em] text-textSecondary/0 transition-all group-hover:text-textSecondary/40 group-hover:translate-y-1">
-                                    {social.label}
-                                </span>
-                            </a>
+                            <MagneticWrapper key={social.href} range={40} sensitivity={0.4}>
+                                <a
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative flex flex-col items-center gap-3 transition-all"
+                                >
+                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/10 bg-white/[0.02] transition-all group-hover:bg-accent group-hover:text-black hover:-translate-y-2">
+                                        <social.icon className="text-2xl" />
+                                    </div>
+                                    <span className="text-[0.55rem] font-bold uppercase tracking-[0.3em] text-textSecondary/0 transition-all group-hover:text-textSecondary/40 group-hover:translate-y-1">
+                                        {social.label}
+                                    </span>
+                                </a>
+                            </MagneticWrapper>
                         ))}
                     </div>
 
@@ -118,12 +122,14 @@ const Footer: React.FC = () => {
                         &copy; {new Date().getFullYear()} — Engineered with discipline. High-Fidelity Execution.
                     </p>
 
-                    <button
-                        onClick={scrollToTop}
-                        className="group flex items-center gap-4 text-[0.7rem] font-bold uppercase tracking-[0.5em] text-accent/40 transition-all hover:text-accent hover:scale-105"
-                    >
-                        System Return <FaArrowUp className="transition-transform group-hover:-translate-y-2" />
-                    </button>
+                    <MagneticWrapper range={50} sensitivity={0.5}>
+                        <button
+                            onClick={scrollToTop}
+                            className="group flex items-center gap-4 text-[0.7rem] font-bold uppercase tracking-[0.5em] text-accent/40 transition-all hover:text-accent hover:scale-105"
+                        >
+                            System Return <FaArrowUp className="transition-transform group-hover:-translate-y-2" />
+                        </button>
+                    </MagneticWrapper>
                 </div>
             </div>
         </footer>

@@ -12,9 +12,23 @@
   --primary: #b86a4a;
   --secondary: #d1b590;
   --accent: #e2a177;
+  --selection-bg: rgba(226, 161, 119, 0.35);
+  --selection-text: #fff;
   --error: #e0715e;
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+  text-shadow: 0 0 12px rgba(226, 161, 119, 0.4);
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+  text-shadow: 0 0 12px rgba(226, 161, 119, 0.4);
 }
 
 @layer base {
@@ -49,4 +63,19 @@
     background: var(--primary);
     box-shadow: 0 0 10px var(--primary);
   }
+}
+
+/* Premium Liquid / Shiny Effects */
+.button-shine-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
 }
