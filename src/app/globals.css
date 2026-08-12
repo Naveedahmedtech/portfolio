@@ -1216,7 +1216,7 @@ h3 {
   margin: 0;
 }
 .playlight-stage {
-  height: calc(10 * (100svh - 76px));
+  height: calc(5 * (100svh - 76px));
   position: relative;
 }
 .playlight-scene {
@@ -1396,6 +1396,21 @@ h3 {
 }
 .playlight-mobile-stages {
   display: none;
+}
+.playlight-evaluation {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(0, 1fr);
+  margin-top: 12px;
+  max-width: 820px;
+  padding-top: 24px;
+}
+.playlight-evaluation p:last-child {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 62ch;
 }
 
 /* Experience: the previous system path resolves into a concise career timeline. */
@@ -2520,6 +2535,15 @@ h3 {
   .playlight-mobile-stages {
     border-top: 1px solid var(--border);
     display: block;
+  }
+  .playlight-evaluation {
+    display: block;
+    margin-top: 34px;
+    padding-top: 24px;
+  }
+  .playlight-evaluation p:last-child {
+    font-size: 0.93rem;
+    margin-top: 12px;
   }
   .playlight-mobile-stage {
     border-bottom: 1px solid var(--border);

@@ -4,22 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 const stages = [
   {
-    label: "Context",
+    label: "Context & Data",
     title: "AI becomes more useful when it remembers the right things.",
-    copy: "A useful personalized assistant needs more than the current message. It needs relevant historical context while avoiding unrelated, outdated, or cross-user information.",
-    nodes: ["Current Request", "User History", "Personalized Response"],
-  },
-  {
-    label: "Data",
-    title: "Persistent context starts with a trustworthy source of truth.",
-    copy: "PostgreSQL stores the product’s persistent application data and user-owned context. The data model has to preserve ownership boundaries, support updates and deletion, and remain queryable as the product evolves.",
-    nodes: ["User", "NestJS API", "PostgreSQL"],
-  },
-  {
-    label: "Embeddings",
-    title: "Not every piece of history belongs in every prompt.",
-    copy: "Relevant context can be represented with embeddings so the backend can search past information semantically rather than sending the entire user history to the model.",
-    nodes: ["User Context", "Embedding", "Vector"],
+    copy: "A useful personalized assistant needs more than the current message. User-owned context is persisted in PostgreSQL, represented for semantic search, and kept queryable as the product evolves.",
+    nodes: ["Current Request", "User-owned Data", "PostgreSQL + pgvector", "Searchable Context"],
   },
   {
     label: "Retrieval",
@@ -28,40 +16,22 @@ const stages = [
     nodes: ["Incoming Request", "User-scoped Search", "Relevant Context"],
   },
   {
-    label: "Context Construction",
+    label: "Context Assembly",
     title: "Retrieval is only useful if the model receives the right context.",
     copy: "Retrieved information still has to be filtered, ordered, shaped, and fitted into a context budget before it becomes part of the model request.",
     nodes: ["Instructions + Request", "Retrieved Context", "Context Assembly", "Model Request"],
   },
   {
-    label: "LLM Integration",
+    label: "Model Boundary",
     title: "The model is a dependency, not the architecture.",
     copy: "The LLM sits behind an application boundary. The backend owns what data is sent, how responses are handled, what happens on timeout or malformed output, and how the result is persisted.",
     nodes: ["Application", "Model Boundary", "LLM Provider", "Validated Response"],
   },
   {
-    label: "Reliability",
-    title: "AI dependencies fail like every other external system.",
-    copy: "The architecture has to account for provider latency, timeouts, retries, duplicate work, partial failures, expensive requests, and graceful recovery.",
-    nodes: ["API", "Retrieval", "LLM Provider", "Recovery"],
-  },
-  {
-    label: "Security",
-    title: "Personalization makes isolation a core architectural requirement.",
-    copy: "User context must remain scoped to the correct user throughout persistence, retrieval, context construction, and model requests.",
-    nodes: ["User A Request", "User A Data", "User A Context"],
-  },
-  {
-    label: "Cost",
-    title: "More context is not automatically better.",
-    copy: "Personalized AI systems have a direct relationship between retrieved context, token usage, latency, and cost. The backend needs to control how much information reaches the model instead of continuously growing prompts.",
-    nodes: ["100 Memories", "6 Relevant Items", "Context Budget", "LLM"],
-  },
-  {
-    label: "Evaluation",
-    title: "A response sounding good is not enough evidence that the system works.",
-    copy: "Retrieval and personalization need repeatable evaluation: whether the right context was retrieved, whether unrelated context leaked in, how much the request cost, and whether changes improved or regressed the user experience.",
-    nodes: ["Input", "Retrieved Context", "Response", "Evaluate"],
+    label: "Reliability / Security / Cost",
+    title: "A useful AI system has to stay safe, reliable, and bounded.",
+    copy: "User isolation, provider failure handling, and context budgets are part of the product architecture. They protect data, control latency and token cost, and keep the system recoverable as it evolves.",
+    nodes: ["User Isolation", "Failure Controls", "Context Budget", "Sustainable AI"],
   },
 ] as const;
 
@@ -168,6 +138,11 @@ export function PlayLightSection() {
           </article>
         ))}
       </div>
+
+      <aside className="playlight-evaluation" data-reveal aria-label="PlayLight evaluation note">
+        <p className="eyebrow">Evaluation / Closing note</p>
+        <p>A response sounding good is not enough evidence that the system works. Retrieval and personalization need repeatable checks for relevance, isolation, cost, and regressions as the product changes.</p>
+      </aside>
 
     </section>
   );
