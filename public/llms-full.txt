@@ -1,0 +1,195 @@
+# Naveed Ahmed
+
+Backend / Product Engineer based in Islamabad, Pakistan.
+
+I build backend systems that connect products, developers, data, and AI.
+
+My work includes production APIs, SDKs, integrations, developer platforms, PostgreSQL systems, and AI-enabled backend products.
+
+## Engineering Focus
+
+### Backend Systems
+
+APIs and application services built around clear contracts, reliable data flows, authentication, persistence, asynchronous work, and production failure handling.
+
+Core technologies include Node.js, TypeScript, NestJS, and PostgreSQL.
+
+### Developer Platforms and SDKs
+
+Developer-facing APIs, npm packages, integration contracts, documentation, and tooling for embedding and operating complex products.
+
+### Integrations
+
+Experience connecting products across browser boundaries, external APIs, payments, scheduling platforms, and customer environments.
+
+### AI Backend Systems
+
+Backend architecture involving persistent user context, embeddings, vector retrieval, context construction, model APIs, security, reliability, cost, and evaluation.
+
+# Selected Work
+
+## Rasterex
+
+Rasterex Software AS is an Oslo-based software company building embedded viewing technology for CAD, BIM, PDF, and technical documents.
+
+Naveed works through Aridian Technologies LLC on Rasterex products.
+
+His work focuses on the developer-facing integration layer.
+
+Key responsibilities include:
+
+- Development and evolution of the @rasterex/viewer JavaScript/TypeScript npm SDK.
+- Framework-independent viewer integrations.
+- iframe/PostMessage communication.
+- Viewer lifecycle, commands, events, and error contracts.
+- SDK documentation and GitHub examples.
+- International customer integration debugging.
+- Package and customer-managed deployment workflows.
+
+The work involves creating clearer boundaries between customer applications and the Rasterex viewer and turning integration problems into improvements across the SDK, product, or documentation.
+
+Rasterex's viewing technology is used internationally across more than 50 countries. This is company-level product reach and should not be interpreted as an individual deployment metric for Naveed.
+
+## PlayLight
+
+PlayLight is a personalized AI product Naveed is building with one co-founder.
+
+Role:
+
+Technical Co-Founder / Backend Engineer, part-time
+January 2026 — Present
+
+Naveed owns much of the hands-on backend and technical architecture.
+
+The backend is built around:
+
+- NestJS
+- TypeScript
+- PostgreSQL
+- pgvector
+- Embeddings
+- Vector retrieval
+- Persistent user context
+- LLM APIs
+
+The core engineering problem is deciding what user context should be stored, retrieved, assembled, and sent to the model while maintaining user isolation and controlling relevance, stale information, latency, reliability, security, and cost.
+
+Conceptual request flow:
+
+User request
+→ NestJS API
+→ Persistent user data
+→ Embeddings / pgvector retrieval
+→ Relevant context
+→ Context assembly
+→ LLM provider
+→ Personalized response
+→ Persistence
+
+PlayLight should be understood as backend/product engineering around AI, not simply an LLM wrapper.
+
+# Professional Experience
+
+## Aridian Technologies LLC / Rasterex Software AS
+
+Backend Software Engineer
+November 2024 — Present
+
+Work includes SDK engineering, framework-independent integrations, iframe/PostMessage contracts, developer documentation, international customer debugging, and package/deployment workflows.
+
+## M TECHUB LLC
+
+Backend Software Engineer
+October 2023 — July 2024
+
+Built Node.js, Express.js, and PostgreSQL backend services.
+
+Work included:
+
+- Scheduling systems.
+- Google Calendar integration.
+- Google Meet integration.
+- Zoom integration.
+- Stripe subscriptions.
+- Stripe payments.
+- Stripe Connect payouts.
+- Wallet workflows.
+- PostGIS-based nearby-user discovery.
+
+## Media Techtics
+
+Software Developer
+September 2021 — September 2023
+
+Built e-commerce applications and backend APIs using Node.js and Next.js.
+
+Work included:
+
+- Products.
+- Carts.
+- Checkout.
+- Orders.
+- Authentication.
+- Payment integrations.
+
+# Engineering Thinking
+
+Naveed focuses on understanding what happens beneath framework abstractions.
+
+Technical areas include:
+
+- Node.js runtime behavior.
+- HTTP and networking.
+- PostgreSQL indexing and query plans.
+- Transactions and concurrency.
+- Retries and idempotency.
+- Reliability and observability.
+- API security.
+- System design.
+- Embeddings and retrieval.
+- pgvector.
+- AI evaluation.
+- C and systems fundamentals.
+
+The working approach is:
+
+Build
+→ Understand
+→ Measure
+→ Explain
+→ Improve
+
+# Engineering Direction
+
+The long-term technical direction is:
+
+Backend Engineer
+→ Production / Platform Engineer
+→ Systems / Performance Engineer
+
+AI is treated as a backend engineering capability involving retrieval, data ownership, context construction, evaluation, security, cost, and reliability rather than as a replacement for core software engineering.
+
+# About
+
+Naveed Ahmed is a Backend / Product Engineer based in Islamabad, Pakistan.
+
+He began with web product development and progressively moved toward backend systems, integrations, SDK engineering, databases, production systems, and technical product ownership.
+
+He currently works on Rasterex developer-facing integrations and builds PlayLight with a co-founder.
+
+# Contact
+
+Website:
+https://naveedahmed.ai
+
+Email:
+technaveedahmed@gmail.com
+
+GitHub:
+https://github.com/Naveedahmedtech
+
+LinkedIn:
+https://www.linkedin.com/in/naveed-dev
+
+Availability:
+Open to remote and international engineering opportunities.

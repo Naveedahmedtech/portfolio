@@ -1,119 +1,169 @@
-# AGENTS.md — Portfolio Architecture & AI Governance (Codex-Strict)
+# AGENTS.md
 
-## Role
+## Scope
 
-**Senior Systems Architect & Creative Technologist**
+Engineering rules only.
 
-You are rebuilding this portfolio as a **modular, enterprise-grade system**. You must balance:
+Do not define portfolio copy, sections, design, theme, colors, typography, or animation here. Those belong in separate documents.
 
-* **High-end Three.js / R3F motion design**
-* **Strict managerial engineering standards** (robustness, maintainability, performance, governance)
+## Engineering Style
 
+Build the portfolio as production-quality Next.js code:
 
-# PHASE 2+ (DO NOT START UNTIL APPROVED)
+* simple and readable
+* strongly typed
+* server-first
+* secure
+* testable
+* maintainable
+* no unnecessary abstractions
 
-## 3D Scene Orchestration (Three.js / R3F)
+Use practical Clean Architecture, not ceremony.
 
-### Requirements
+## Next.js
 
-* Canvas management:
+* Use App Router.
+* Prefer Server Components.
+* Add `"use client"` only for real browser interaction/state.
+* Keep pages/layouts thin.
+* Keep business/data logic out of JSX.
+* Keep secrets and privileged logic server-side.
+* Use Route Handlers or Server Actions only when they solve a real need.
 
-  * Global or section-scoped using `View` from `@react-three/drei`.
-  * 3D elements may follow DOM layout.
-* Performance:
+## Architecture
 
-  * `AdaptiveEvents`, `AdaptiveDpr`.
-  * `Preload` for all assets.
-  * Animation strictly via refs + `useFrame` (no per-frame React state).
-* Interaction:
+For non-trivial features, keep dependencies in this direction:
 
-  * GSAP ScrollTrigger scrubbing controls 3D transforms.
+```text
+Presentation → Application → Domain ← Infrastructure
+```
 
----
+* **Presentation:** pages, components, route handlers, server actions
+* **Application:** use cases and orchestration
+* **Domain:** pure types/rules with no React/Next/vendor dependency
+* **Infrastructure:** external APIs, database, email, analytics, CMS, filesystem
 
-## Advanced GSAP Animation Suite
+Do not create layers that have no real purpose.
 
-* Pinned panels with overscroll.
-* MotionPath waypoints controlling 3D rotation & text reveals.
-* SplitText kinetic headers.
-* Lateral pinned progress indicator.
-* Mandatory GSAP cleanup on unmount.
+## Project Structure
 
----
+Prefer feature-based organization:
 
-## UI/UX Section Roadmap (Configurable + Decoupled)
+```text
+src/
+  app/
+  components/
+  features/
+  lib/
+  config/
+```
 
-1. **Hero [Public]** — R3F abstract scene + kinetic reveal, reacts to scroll & mouse.
-2. **Unified Skills [Public]** — Bento grid + perspective toggle, waypoints illuminate 3D nodes.
-3. **Experience & Projects [Public]** — Loaded from preserved data, pinned transitions + 3D depth.
-4. **Blogs [Public]** — MDX scaffold; toggle via `SHOW_BLOG: false`.
-5. **Contact [Public]** — EmailJS + Zod + honeypot.
-6. **Admin Dashboard [Private]** — Hidden shortcut `shift + a + d`; manages feature flags & blog content.
+Keep feature-specific code inside its feature.
 
----
+Avoid giant `utils`, `helpers`, or `services` dumping grounds.
 
-## Auth, Security & Routing
+## TypeScript
 
-* `PublicRoute` vs `ProtectedRoute` separation.
-* Auth via `AuthContext` + `sessionStorage`.
-* Hidden login sequence.
+* Use strict TypeScript.
+* Avoid `any`.
+* Use `unknown` for untrusted values and validate/narrow them.
+* Strongly type exported functions and public contracts.
+* Runtime-validate forms, env vars, query params, API responses, and other external input.
+* Prefer clear types over clever generics.
 
----
+## Backend Boundaries
 
-## Engineering Standards (Managerial Grade)
+Do not call external systems directly from random UI components.
 
-* Error boundaries around Canvas and major features.
-* Lighthouse 100/100 target.
-* GPU-accelerated transitions.
-* Full cleanup:
+Prefer:
 
-  * Kill all GSAP ScrollTriggers.
-  * Dispose all Three.js objects.
-  * Remove raf loops on unmount.
+```text
+UI → application function → infrastructure adapter
+```
 
----
+Do not leak vendor-specific response shapes across the app.
 
-# Content Strategy & Narrative System
+## Errors & Security
 
-Persona: **"A Visionary Engineering Leader & AI Orchestrator"**
+* Handle validation, not-found, authorization, dependency, and internal failures intentionally.
+* Never expose stack traces or secrets.
+* Validate all external input server-side.
+* Never trust client-side validation as a security boundary.
+* Never log passwords, tokens, secrets, or sensitive user data.
 
-## Hero Copy
+## Backend Mindset
 
-* **Title:** AI Orchestrator & Engineering Manager
-* **Subtext:** "Architecting scalable intelligent systems and leading high-performance teams to bridge the gap between complex AI logic and business ROI."
+For every external or async operation ask:
 
-## Unified Skills
+```text
+What can fail?
+Can it time out?
+Should it retry?
+Could retry duplicate work?
+What should be logged?
+What should the user see?
+```
 
-### Manager
+Do not retry forever or blindly retry non-idempotent work.
 
-* SDLC Governance
-* Mentorship
-* Strategic Roadmap Planning
-* Cross-functional Collaboration
+## Performance
 
-### Developer
+* minimize client JavaScript
+* avoid unnecessary hydration
+* avoid duplicate fetching
+* optimize images
+* lazy-load expensive optional UI
+* cache intentionally
+* measure before optimizing
 
-* Latency Optimization
-* React 19 / Three.js
-* Agentic Workflows (LangGraph)
-* System Security
+## No Fake Complexity
 
-## Experience Narratives — Google XYZ Formula
+Do not add infrastructure only to make the portfolio look backend-heavy.
 
-Format future experience rewrites as:
-“Accomplished [X] as measured by [Y], by doing [Z].”
+No Redis, BullMQ, RabbitMQ, Kafka, microservices, Kubernetes, or database unless the product genuinely needs them.
 
-## About / Philosophy
+## Testing
 
-Theme: **People-First Technical Excellence**
-Content includes:
+Test behavior that matters:
 
-* AI ethics & governance.
-* Day 2 operations.
-* Ownership culture in engineering teams.
+* validation
+* pure logic
+* transformations
+* server functions
+* critical API behavior
 
-## Tone Guidelines
+Prefer behavior-focused tests.
 
-* Sophisticated, authoritative, accessible.
-* "Understands the code, speaks business."
-* Keywords: **Scalability, Orchestration, Governance, ROI, High-Fidelity, Resilience**.
+## Agent Workflow
+
+Before coding:
+
+1. inspect the existing repository
+2. inspect `package.json`
+3. understand the current Next.js version and conventions
+4. inspect TypeScript/lint/test/build configuration
+5. reuse sound existing patterns
+6. make the smallest coherent change
+
+Avoid unnecessary rewrites and unrelated refactors.
+
+## Before Completion
+
+Run the checks that exist in the repository, typically:
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+Do not claim completion with known errors.
+
+## Final Rule
+
+Write **boring, clear, strong code**.
+
+Optimize for:
+
+**clear boundaries, strong types, safe server behavior, predictable failures, and maintainability.**
