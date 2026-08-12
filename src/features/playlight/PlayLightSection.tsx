@@ -115,7 +115,7 @@ export function PlayLightSection() {
   const activeStage = stages[activeIndex] ?? stages[0];
 
   return (
-    <section className="playlight-section section section-border" data-section="playlight" aria-labelledby="playlight-title">
+    <section className="playlight-section section section-border" data-section="work" aria-labelledby="playlight-title">
       <div className="playlight-heading" data-reveal>
         <p className="eyebrow">Zero-to-one Product Engineering</p>
         <p className="playlight-product">PlayLight · Personalized AI Product</p>

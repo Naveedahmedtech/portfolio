@@ -70,7 +70,7 @@ export function FocusSection() {
   const activeArea = areas[activeIndex] ?? areas[0];
 
   return (
-    <section className="focus-section section section-border" data-section="focus" aria-labelledby="focus-title">
+    <section className="focus-section section section-border" data-section="work" aria-labelledby="focus-title">
       <div className="focus-heading" data-reveal>
         <p className="eyebrow">What I build</p>
         <h2 id="focus-title">Backend engineering across product, platform, and production boundaries.</h2>

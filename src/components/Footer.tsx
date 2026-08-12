@@ -1,7 +1,7 @@
 const navigation = [
   ["Work", "#work"],
   ["Experience", "#experience"],
-  ["Engineering", "#thinking"],
+  ["Engineering", "#engineering"],
   ["About", "#about"],
   ["Contact", "#contact"],
 ] as const;

@@ -41,9 +41,15 @@ export function AboutSection() {
         </div>
 
         <div className="about-method" aria-label="Engineering method">
-          {['Build', 'Understand', 'Measure', 'Explain', 'Improve'].map((step, index, steps) => (
-            <span key={step}><b>{step}</b>{index < steps.length - 1 && <i aria-hidden="true">↓</i>}</span>
-          ))}
+          <span className="metadata">Working loop</span>
+          <ol>
+            {['Build', 'Understand', 'Measure', 'Explain', 'Improve'].map((step, index) => (
+              <li key={step} className={index === 4 ? 'is-final' : undefined}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <b>{step}</b>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
 
@@ -63,11 +69,24 @@ export function AboutSection() {
       <div className="about-direction" data-reveal>
         <div>
           <p className="eyebrow">Where I’m going</p>
-          <h3>Backend <span>→</span> Production / Platform <span>→</span> Systems / Performance</h3>
+          <ol className="about-direction-path" aria-label="Backend to systems engineering direction">
+            <li className="about-direction-step">
+              <span className="about-direction-marker">01</span>
+              <span>Backend</span>
+            </li>
+            <li className="about-direction-step">
+              <span className="about-direction-marker">02</span>
+              <span>Production / Platform</span>
+            </li>
+            <li className="about-direction-step is-current">
+              <span className="about-direction-marker">03</span>
+              <span>Systems / Performance</span>
+            </li>
+          </ol>
         </div>
         <div className="about-direction-copy">
           <p>I’m deliberately deepening my understanding of Node.js runtime behavior, PostgreSQL, networking, reliability, distributed-system fundamentals, and lower-level systems concepts while continuing to build production backend products.</p>
-          <p>I also study C and lower-level systems concepts to strengthen my understanding of memory, processes, files, sockets, and the abstractions underneath the backend runtimes I use every day.</p>
+          <p><span className="metadata">Systems depth</span>I also study C and lower-level systems concepts to strengthen my understanding of memory, processes, files, sockets, and the abstractions underneath the backend runtimes I use every day.</p>
         </div>
       </div>
 

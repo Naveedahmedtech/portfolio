@@ -44,7 +44,7 @@ function ArtifactVisual({ type }: { type: (typeof artifacts)[number]["visual"] }
 
 export function EngineeringThinkingSection() {
   return (
-    <section className="thinking-section section section-border" id="thinking" data-section="thinking" aria-labelledby="thinking-title">
+    <section className="thinking-section section section-border" id="engineering" data-section="engineering" aria-labelledby="thinking-title">
       <div className="thinking-heading" data-reveal>
         <p className="eyebrow">Engineering Thinking</p>
         <h2 id="thinking-title">I like understanding what happens beneath the abstraction.</h2>
@@ -60,17 +60,23 @@ export function EngineeringThinkingSection() {
           <p>A system walkthrough from the incoming NestJS request through PostgreSQL, retrieval, context assembly, the model boundary, persistence, and failure paths.</p>
           <span className="metadata">NestJS · PostgreSQL · pgvector · Retrieval · LLM APIs</span>
         </div>
-        <div className="featured-flow" aria-label="PlayLight request flow">
-          {['Request', 'NestJS', 'Data', 'Retrieval', 'Context', 'LLM', 'Response'].map((node, index, nodes) => (
-            <span key={node}><b>{node}</b>{index < nodes.length - 1 && <i aria-hidden="true">↓</i>}</span>
+        <ol className="featured-flow" aria-label="PlayLight request flow">
+          {['Request', 'NestJS', 'Data', 'Retrieval', 'Context', 'LLM', 'Response'].map((node, index) => (
+            <li key={node} className={index === 1 || index === 5 ? 'is-boundary' : undefined}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <b>{node}</b>
+            </li>
           ))}
-        </div>
+        </ol>
       </article>
 
       <div className="artifact-grid">
-        {artifacts.map((artifact) => (
+        {artifacts.map((artifact, index) => (
           <article className="artifact-card" data-reveal key={artifact.title}>
-            <p className="eyebrow">{artifact.category}</p>
+            <div className="artifact-card-top">
+              <p className="eyebrow">{artifact.category}</p>
+              <span className="artifact-index">{String(index + 1).padStart(2, '0')}</span>
+            </div>
             <h3>{artifact.title}</h3>
             <p>{artifact.summary}</p>
             <ArtifactVisual type={artifact.visual} />

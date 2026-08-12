@@ -12,7 +12,8 @@ export function MotionLayer() {
 
     const revealElements = Array.from(document.querySelectorAll(revealSelector));
     const sections = Array.from(document.querySelectorAll<HTMLElement>(sectionSelector));
-    const navigationLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("nav a[href^='#']"));
+    const navigationLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".site-header nav a[href^='#']"));
+    const mobileNavigation = document.querySelector<HTMLDetailsElement>(".mobile-navigation");
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -40,20 +41,19 @@ export function MotionLayer() {
       });
     };
 
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        const visibleSection = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const handleNavigationClick = (event: Event) => {
+      const link = event.currentTarget as HTMLAnchorElement;
+      updateActiveSection(link.hash.slice(1));
+    };
 
-        if (visibleSection) {
-          updateActiveSection(visibleSection.target.getAttribute("data-section") ?? "");
-        }
-      },
-      { rootMargin: "-20% 0px -65% 0px", threshold: [0.05, 0.2, 0.5] },
-    );
+    navigationLinks.forEach((link) => link.addEventListener("click", handleNavigationClick));
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    const closeMobileNavigation = (event: Event) => {
+      if ((event.target as HTMLElement).closest("a")) {
+        mobileNavigation?.removeAttribute("open");
+      }
+    };
+    mobileNavigation?.addEventListener("click", closeMobileNavigation);
 
     let frame = 0;
     const updateProgress = () => {
@@ -62,6 +62,16 @@ export function MotionLayer() {
       const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
       root.style.setProperty("--scroll-progress", progress.toString());
       root.style.setProperty("--scroll-position", `${window.scrollY}px`);
+
+      const headerHeight = document.querySelector<HTMLElement>(".site-header")?.offsetHeight ?? 76;
+      const threshold = window.scrollY + headerHeight + 24;
+      const activeSection = sections.reduce((active, section) => {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        return sectionTop <= threshold
+          ? section.getAttribute("data-section") ?? active
+          : active;
+      }, "");
+      updateActiveSection(activeSection);
     };
 
     const handleScroll = () => {
@@ -72,11 +82,14 @@ export function MotionLayer() {
 
     updateProgress();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
       revealObserver.disconnect();
-      sectionObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      navigationLinks.forEach((link) => link.removeEventListener("click", handleNavigationClick));
+      mobileNavigation?.removeEventListener("click", closeMobileNavigation);
       if (frame !== 0) window.cancelAnimationFrame(frame);
       root.classList.remove("motion-ready");
       root.style.removeProperty("--scroll-progress");

@@ -8,7 +8,13 @@ import { AboutSection } from "@/features/about/AboutSection";
 import { ContactSection } from "@/features/contact/ContactSection";
 import { Footer } from "@/components/Footer";
 
-const navigation = ["Work", "Experience", "Engineering", "About", "Contact"] as const;
+const navigation = [
+  ["Work", "#work"],
+  ["Experience", "#experience"],
+  ["Engineering", "#engineering"],
+  ["About", "#about"],
+  ["Contact", "#contact"],
+] as const;
 
 export default function HomePage() {
   return (
@@ -19,13 +25,19 @@ export default function HomePage() {
           <span>Naveed Ahmed</span>
           <small>Backend / Product Engineer</small>
         </a>
-        <nav aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`}>
-              {item}
-            </a>
+        <nav className="desktop-navigation" aria-label="Primary navigation">
+          {navigation.map(([label, href]) => (
+            <a key={label} href={href}>{label}</a>
           ))}
         </nav>
+        <details className="mobile-navigation">
+          <summary aria-label="Open navigation menu"><span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" /></summary>
+          <nav aria-label="Mobile primary navigation">
+            {navigation.map(([label, href]) => (
+              <a key={label} href={href}>{label}</a>
+            ))}
+          </nav>
+        </details>
       </header>
 
       <section className="hero" id="top" data-section="top" aria-labelledby="hero-title">
@@ -55,27 +67,18 @@ export default function HomePage() {
             <span>AI Backend</span>
           </div>
         </div>
-        <div className="system-sketch" data-reveal data-reveal-delay="2" aria-label="A simplified system flow from client to API, data, service, and output" role="img">
+        <div className="system-sketch" data-reveal data-reveal-delay="2" aria-label="A simplified system flow from product client through an API boundary to data, service, and result" role="img">
           <div className="sketch-label">SYSTEM / REQUEST FLOW</div>
-          <div className="diagram diagram-desktop">
-            <div className="diagram-node diagram-client">Client</div>
-            <div className="diagram-connector connector-client-api"><span className="data-signal" /></div>
-            <div className="diagram-node diagram-api">API</div>
-            <div className="diagram-branch">
-              <div className="diagram-connector connector-api-data"><span /></div>
-              <div className="diagram-connector connector-api-service"><span className="data-signal data-signal-delay" /></div>
-            </div>
-            <div className="diagram-node diagram-data">Data</div>
-            <div className="diagram-node diagram-service">Service</div>
-            <div className="diagram-connector connector-service-output"><span /></div>
-            <div className="diagram-node diagram-output">Output</div>
-          </div>
-          <div className="diagram-mobile">
-            <div className="diagram-node diagram-client">Client</div>
-            <div className="diagram-connector"><span className="data-signal" /></div>
-            <div className="diagram-node diagram-api">API</div>
-            <div className="diagram-connector"><span /></div>
-            <div className="diagram-node diagram-output">Output</div>
+          <div className="hero-diagram">
+            <div className="hero-diagram-node">Product / Client</div>
+            <div className="hero-diagram-connector"><small>request</small><span className="data-signal" /></div>
+            <div className="hero-diagram-node is-accent">API Boundary</div>
+            <div className="hero-diagram-connector"><small>route</small><span className="data-signal data-signal-delay" /></div>
+            <div className="hero-diagram-node">Service</div>
+            <div className="hero-diagram-connector"><small>context</small><span className="data-signal data-signal-delay-two" /></div>
+            <div className="hero-diagram-node">Data / Context</div>
+            <div className="hero-diagram-connector"><small>result</small><span className="data-signal data-signal-delay-three" /></div>
+            <div className="hero-diagram-node is-result">Useful Result</div>
           </div>
           <div className="sketch-meta">requests · boundaries · useful outcomes</div>
         </div>
