@@ -103,7 +103,7 @@ export function ExperienceSection() {
       </p>
 
       <div className="experience-timeline" ref={timelineRef}>
-        <div className="experience-scene">
+        <div className="experience-scene" aria-hidden="true">
           <div className="timeline-rail" aria-label="Career timeline">
             <div className="timeline-line" />
             <div className="timeline-line-progress" />

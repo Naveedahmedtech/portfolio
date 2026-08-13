@@ -10,28 +10,16 @@ const stages = [
     nodes: ["React / Angular / Vanilla", "Framework-independent SDK", "Rasterex"],
   },
   {
-    label: "SDK",
-    title: "A framework-independent contract for controlling the viewer.",
-    copy: "I work on the @rasterex/viewer JavaScript/TypeScript npm SDK, providing developers with a clearer integration surface for viewer lifecycle, document operations, commands, events, and errors.",
-    nodes: ["Customer Application", "@rasterex/viewer", "Rasterex Canvas"],
+    label: "SDK + Communication",
+    title: "A clear SDK contract across the browser boundary.",
+    copy: "I work on the @rasterex/viewer JavaScript/TypeScript npm SDK and its iframe/PostMessage communication contract, giving developers a clearer surface for viewer lifecycle, document operations, commands, events, and errors.",
+    nodes: ["Customer Application", "@rasterex/viewer + PostMessage", "Rasterex Viewer"],
   },
   {
-    label: "Communication",
-    title: "Commands move in. Events move back.",
-    copy: "The viewer can run across an iframe/browser boundary, so communication becomes an explicit contract rather than ordinary in-process function calls.",
-    nodes: ["Host Application", "iframe / PostMessage", "Rasterex Viewer"],
-  },
-  {
-    label: "Developer Experience",
-    title: "An SDK only works when developers can understand it.",
-    copy: "Integration quality is not only about code. I also work on SDK documentation, GitHub examples, installation guidance, and integration flows so external developers can understand the contract and diagnose problems more easily.",
-    nodes: ["SDK", "Types · Examples", "Documentation · Guides"],
-  },
-  {
-    label: "Production",
-    title: "Real integrations fail at system boundaries.",
-    copy: "I work directly with international customer integrations to reproduce issues across application code, browser behavior, configuration, deployment, and the viewer boundary — then turn those findings into fixes, clearer contracts, or better documentation.",
-    nodes: ["Customer App", "Browser Boundary", "Viewer / Deployment"],
+    label: "Developer Experience + Production",
+    title: "An SDK has to be understandable in production.",
+    copy: "I work on documentation, GitHub examples, installation guidance, and customer integrations, reproducing issues across application code, browser behavior, configuration, deployment, and the viewer boundary — then turning those findings into fixes or clearer contracts.",
+    nodes: ["SDK", "Types · Examples · Docs", "Customer Integration"],
   },
   {
     label: "Delivery",
@@ -105,7 +93,7 @@ export function RasterexSection() {
       </p>
 
       <div className="rasterex-stage" ref={stageRef}>
-        <div className="rasterex-scene">
+        <div className="rasterex-scene" aria-hidden="true">
           <div className="rasterex-story">
             <div className="rasterex-stage-index">
               {stages.map((stage, index) => (

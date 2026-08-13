@@ -31,6 +31,7 @@ export function Footer() {
             <a href="https://github.com/Naveedahmedtech" rel="noreferrer" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
             <a href="https://www.linkedin.com/in/naveed-dev" rel="noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
             <a href="mailto:technaveedahmed@gmail.com">Email <span aria-hidden="true">↗</span></a>
+            <a href="/resume.pdf" target="_blank" rel="noreferrer">Resume <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>

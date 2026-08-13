@@ -106,7 +106,7 @@ export function PlayLightSection() {
       </div>
 
       <div className="playlight-stage" ref={stageRef}>
-        <div className="playlight-scene">
+        <div className="playlight-scene" aria-hidden="true">
           <div className="playlight-story">
             <div className="playlight-stage-index">
               {stages.map((stage, index) => (
