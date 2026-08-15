@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://naveedahmed.ai"),
-  title: "Naveed Ahmed — Backend / Product Engineer",
-  description: "Backend / Product Engineer building production APIs, SDKs, integrations, developer platforms, and AI-enabled backend systems with Node.js, TypeScript, NestJS, and PostgreSQL.",
+  title: "Naveed Ahmed | Backend Engineer — Node.js, TypeScript, NestJS & PostgreSQL",
+  description: "Naveed Ahmed is a Backend / Product Engineer building production Node.js and TypeScript APIs, NestJS services, PostgreSQL systems, JavaScript SDKs, integrations, and AI backend products.",
   applicationName: "Naveed Ahmed Portfolio",
   authors: [{ name: "Naveed Ahmed" }],
   creator: "Naveed Ahmed",
@@ -13,14 +13,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Naveed Ahmed",
     locale: "en_US",
-    title: "Naveed Ahmed — Backend / Product Engineer",
-    description: "Backend systems, SDKs, integrations, developer platforms, and AI-enabled products.",
+    title: "Naveed Ahmed | Backend Engineer — Node.js, TypeScript, NestJS & PostgreSQL",
+    description: "Production Node.js APIs, NestJS services, PostgreSQL systems, JavaScript SDKs, integrations, and AI backend products.",
     url: "https://naveedahmed.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Naveed Ahmed — Backend / Product Engineer",
-    description: "Backend systems, SDKs, integrations, developer platforms, and AI-enabled products.",
+    title: "Naveed Ahmed | Backend Engineer — Node.js, TypeScript, NestJS & PostgreSQL",
+    description: "Production Node.js APIs, NestJS services, PostgreSQL systems, JavaScript SDKs, integrations, and AI backend products.",
   },
   category: "technology",
 };
@@ -36,6 +36,10 @@ export default function RootLayout({
     name: "Naveed Ahmed",
     url: "https://naveedahmed.ai",
     jobTitle: "Backend / Product Engineer",
+    sameAs: [
+      "https://github.com/Naveedahmedtech",
+      "https://www.linkedin.com/in/naveed-dev",
+    ],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Islamabad",

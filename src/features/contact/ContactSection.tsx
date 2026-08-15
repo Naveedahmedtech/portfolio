@@ -14,8 +14,11 @@ export function ContactSection() {
           Email me <span aria-hidden="true">→</span>
         </a>
         <a className="contact-email" href="mailto:technaveedahmed@gmail.com">technaveedahmed@gmail.com</a>
+        <a className="contact-resume text-link" href="/resume.pdf" download type="application/pdf">
+          Download résumé <span aria-hidden="true">↓</span>
+        </a>
         <div className="contact-meta">
-          <span className="availability"><i aria-hidden="true" /> Open to remote and international opportunities</span>
+          <span className="availability"><i aria-hidden="true" /> Open to remote, international opportunities, and relocation</span>
           <span>Backend Engineering · Product Engineering · Developer Platforms · SDK / Integrations · AI Backend</span>
         </div>
       </div>

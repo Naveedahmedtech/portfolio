@@ -2116,6 +2116,13 @@ h3 {
 .contact-email:hover {
   color: var(--text);
 }
+.contact-resume {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  margin-top: 14px;
+  text-transform: uppercase;
+}
 .contact-meta {
   border-top: 1px solid var(--border);
   color: var(--subtle);

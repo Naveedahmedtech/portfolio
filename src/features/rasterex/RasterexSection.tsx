@@ -85,7 +85,7 @@ export function RasterexSection() {
       <div className="rasterex-heading" data-reveal>
         <p className="eyebrow">Production Engineering</p>
         <p className="rasterex-company">Rasterex Software AS · Oslo, Norway</p>
-        <p className="metadata">Backend Software Engineer · Aridian Technologies LLC</p>
+        <p className="metadata">Backend Software Engineer · Aridian Technologies LLC · Customer deployments across 50+ countries</p>
         <h2 id="rasterex-title">Building the SDK and integration layer between customer applications and Rasterex.</h2>
       </div>
       <p className="section-intro rasterex-intro" data-reveal data-reveal-delay="1">

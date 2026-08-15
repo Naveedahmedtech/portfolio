@@ -7,7 +7,7 @@ const areas = [
     title: "Backend Systems",
     description:
       "APIs and application services built around clear contracts, reliable data flows, authentication, persistence, asynchronous work, and production failure handling.",
-    technologies: "Node.js · TypeScript · NestJS · PostgreSQL",
+    technologies: "Node.js · TypeScript · NestJS · PostgreSQL · Redis · BullMQ · RabbitMQ",
     nodes: ["Request", "API", "Service", "Database"],
   },
   {
@@ -20,8 +20,8 @@ const areas = [
   {
     title: "Integrations",
     description:
-      "Systems that connect products across browser boundaries, external APIs, payments, scheduling platforms, and customer environments.",
-    technologies: "PostMessage · REST APIs · Stripe · External APIs",
+      "Systems that connect products across browser boundaries, external APIs, Stripe Connect payments, calendar and meeting platforms, and customer environments.",
+    technologies: "PostMessage · REST APIs · Stripe Connect · Calendar / Meeting APIs",
     nodes: ["System A", "Integration Layer", "System B", "Product"],
   },
   {
@@ -70,7 +70,7 @@ export function FocusSection() {
   const activeArea = areas[activeIndex] ?? areas[0];
 
   return (
-    <section className="focus-section section section-border" data-section="work" aria-labelledby="focus-title">
+    <section className="focus-section section section-border" id="focus" data-section="work" aria-labelledby="focus-title">
       <div className="focus-heading" data-reveal>
         <p className="eyebrow">What I build</p>
         <h2 id="focus-title">Backend engineering across product, platform, and production boundaries.</h2>
