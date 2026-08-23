@@ -31,12 +31,13 @@ export function Footer() {
             <a href="https://github.com/Naveedahmedtech" rel="noreferrer" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
             <a href="https://www.linkedin.com/in/naveed-dev" rel="noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
             <a href="mailto:technaveedahmed@gmail.com">Email <span aria-hidden="true">↗</span></a>
+            <a href="/resume.pdf" download type="application/pdf">Download résumé <span aria-hidden="true">↓</span></a>
           </div>
         </div>
       </div>
 
       <div className="footer-status">
-        <span className="availability"><i aria-hidden="true" /> Open to remote and international opportunities</span>
+        <span className="availability"><i aria-hidden="true" /> Open to remote, international opportunities, and relocation</span>
       </div>
 
       <div className="footer-bottom">

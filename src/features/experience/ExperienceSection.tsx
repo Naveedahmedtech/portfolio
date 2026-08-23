@@ -37,10 +37,10 @@ const roles: Role[] = [
     period: "NOV 2024 — PRESENT",
     year: "2024",
     role: "Backend Software Engineer",
-    company: "Aridian Technologies / Rasterex",
+    company: "Aridian Technologies LLC / Rasterex Software AS",
     location: "Rasterex Software AS · Oslo, Norway",
     summary: "Work on Rasterex’s developer-facing integration platform, including the @rasterex/viewer SDK, framework-independent integrations, iframe/PostMessage communication, documentation, customer debugging, and delivery workflows.",
-    focus: "SDK Engineering · Integration Contracts · PostMessage · Developer Experience · Customer Integrations",
+    focus: "SDK Engineering · Integration Contracts · PostMessage · Developer Experience · Customer Integrations · 50+ Countries",
     link: "#work",
     emphasis: true,
   },
@@ -103,7 +103,7 @@ export function ExperienceSection() {
       </p>
 
       <div className="experience-timeline" ref={timelineRef}>
-        <div className="experience-scene">
+        <div className="experience-scene" aria-hidden="true">
           <div className="timeline-rail" aria-label="Career timeline">
             <div className="timeline-line" />
             <div className="timeline-line-progress" />

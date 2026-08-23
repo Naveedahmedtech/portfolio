@@ -54,7 +54,7 @@ export default function HomePage() {
             <a className="button" href="#work">
               Explore my work <span aria-hidden="true">→</span>
             </a>
-            <a className="text-link" href="mailto:technaveedahmed@gmail.com">
+            <a className="text-link" href="#contact">
               Get in touch
             </a>
           </div>

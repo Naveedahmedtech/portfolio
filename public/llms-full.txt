@@ -12,7 +12,9 @@ My work includes production APIs, SDKs, integrations, developer platforms, Postg
 
 APIs and application services built around clear contracts, reliable data flows, authentication, persistence, asynchronous work, and production failure handling.
 
-Core technologies include Node.js, TypeScript, NestJS, and PostgreSQL.
+Core technologies include Node.js, TypeScript, NestJS, PostgreSQL, Redis, BullMQ, and RabbitMQ.
+
+Production tooling includes Docker, Linux, AWS/Azure, CI/CD, and observability.
 
 ### Developer Platforms and SDKs
 
@@ -169,6 +171,10 @@ Backend Engineer
 
 AI is treated as a backend engineering capability involving retrieval, data ownership, context construction, evaluation, security, cost, and reliability rather than as a replacement for core software engineering.
 
+# Education
+
+Higher Secondary School Certificate (Pre-Engineering), Model Science College, 2019 — 2021.
+
 # About
 
 Naveed Ahmed is a Backend / Product Engineer based in Islamabad, Pakistan.
@@ -191,5 +197,8 @@ https://github.com/Naveedahmedtech
 LinkedIn:
 https://www.linkedin.com/in/naveed-dev
 
+Résumé download:
+https://naveedahmed.ai/resume.pdf
+
 Availability:
-Open to remote and international engineering opportunities.
+Open to remote, international engineering opportunities, and relocation.

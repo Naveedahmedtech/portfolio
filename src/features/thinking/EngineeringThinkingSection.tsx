@@ -1,69 +1,157 @@
-const artifacts = [
+const investigations = [
   {
     category: "Performance",
-    title: "What happens when a Node.js server is under load?",
-    summary: "Small benchmarking experiments focused on latency, concurrency, event-loop behavior, blocking work, and observable bottlenecks instead of benchmark numbers without a hypothesis.",
+    title: "Understanding Node.js behavior under load",
+    summary:
+      "I use controlled load tests to study how concurrency, blocking work, external dependencies, and event-loop behavior affect API latency. The goal is to identify the actual bottleneck from measurements rather than optimize based on assumptions.",
     topics: "Node.js · HTTP · Event Loop · Latency",
     visual: "load",
+    status: "Active investigation",
   },
   {
     category: "PostgreSQL",
-    title: "Indexes should follow access patterns",
-    summary: "Notes and experiments around query plans, index choices, transaction behavior, and using EXPLAIN ANALYZE to validate assumptions instead of treating indexes as automatic improvements.",
+    title: "Validating database performance with query plans",
+    summary:
+      "I am working through PostgreSQL access patterns using EXPLAIN ANALYZE, indexes, transaction behavior, and realistic datasets to understand why a query is slow before changing the schema or adding an index.",
     topics: "PostgreSQL · Indexes · EXPLAIN ANALYZE · Query Plans",
     visual: "query",
+    status: "Active investigation",
   },
   {
     category: "Reliability",
-    title: "Designing for failure instead of only the happy path",
-    summary: "Practical notes on timeouts, retries, idempotency, graceful failure, logging, observability, and what should happen when a dependency becomes unavailable.",
+    title: "What should happen when part of the system fails?",
+    summary:
+      "I study failure behavior around timeouts, retries, duplicate work, idempotency, background jobs, and unavailable dependencies by reproducing those conditions and reasoning about how the system should recover.",
     topics: "Timeouts · Retries · Idempotency · Failure Modes",
     visual: "failure",
+    status: "Applied in PlayLight",
   },
   {
     category: "AI Systems",
-    title: "Why retrieval quality matters more than simply adding more context",
-    summary: "Exploring user-scoped retrieval, embeddings, relevance, stale context, context budgets, and how retrieval quality affects personalization, cost, and model behavior.",
+    title: "Evaluating retrieval instead of assuming personalization works",
+    summary:
+      "In PlayLight, I am working on how user-scoped retrieval, embeddings, context selection, and context limits affect model behavior. The next step is making retrieval quality measurable instead of treating a plausible response as proof that the system works.",
     topics: "Embeddings · pgvector · Retrieval · Evaluation",
     visual: "retrieval",
+    status: "Applied in PlayLight",
   },
 ] as const;
 
-function ArtifactVisual({ type }: { type: (typeof artifacts)[number]["visual"] }) {
+function ArtifactVisual({
+  type,
+}: {
+  type: (typeof investigations)[number]["visual"];
+}) {
   if (type === "load") {
-    return <div className="artifact-visual artifact-load"><span /><span /><span /><i /></div>;
+    return (
+      <div className="artifact-visual artifact-load">
+        <span />
+        <span />
+        <span />
+        <i />
+      </div>
+    );
   }
+
   if (type === "query") {
-    return <div className="artifact-visual artifact-query"><span>Query</span><i>Planner</i><b>Index Scan</b></div>;
+    return (
+      <div className="artifact-visual artifact-query">
+        <span>Query</span>
+        <i>Planner</i>
+        <b>Execution Plan</b>
+      </div>
+    );
   }
+
   if (type === "failure") {
-    return <div className="artifact-visual artifact-failure"><span>API</span><i>Database&nbsp; ✓</i><i>External API&nbsp; ✕</i><i>Recovery&nbsp; →</i></div>;
+    return (
+      <div className="artifact-visual artifact-failure">
+        <span>Request</span>
+        <i>Dependency ✓</i>
+        <i>Dependency ✕</i>
+        <i>Recovery →</i>
+      </div>
+    );
   }
-  return <div className="artifact-visual artifact-retrieval"><span>User History</span><i>Retrieval</i><b>Relevant Context</b><em>LLM</em></div>;
+
+  return (
+    <div className="artifact-visual artifact-retrieval">
+      <span>User Context</span>
+      <i>Retrieval</i>
+      <b>Selected Context</b>
+      <em>Model</em>
+    </div>
+  );
 }
 
 export function EngineeringThinkingSection() {
   return (
-    <section className="thinking-section section section-border" id="engineering" data-section="engineering" aria-labelledby="thinking-title">
+    <section
+      className="thinking-section section section-border"
+      id="engineering"
+      data-section="engineering"
+      aria-labelledby="thinking-title"
+    >
       <div className="thinking-heading" data-reveal>
-        <p className="eyebrow">Engineering Thinking</p>
-        <h2 id="thinking-title">I like understanding what happens beneath the abstraction.</h2>
+        <p className="eyebrow">Engineering Practice</p>
+
+        <h2 id="thinking-title">
+          Understanding systems by measuring, breaking, and tracing them.
+        </h2>
       </div>
-      <p className="section-intro thinking-intro" data-reveal data-reveal-delay="1">
-        I use real systems, small experiments, architecture notes, and failure analysis to understand the technologies I work with — from Node.js runtime behavior and PostgreSQL query plans to retrieval systems, networking, reliability, and production debugging.
+
+      <p
+        className="section-intro thinking-intro"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        I use production work, controlled experiments, architecture
+        tracing, and failure analysis to deepen my understanding of the
+        systems I work with. My current focus is Node.js runtime behavior,
+        PostgreSQL performance, backend reliability, and retrieval systems
+        used in PlayLight.
       </p>
 
       <article className="featured-artifact" data-reveal>
         <div className="featured-artifact-copy">
-          <p className="eyebrow">Architecture</p>
+          <p className="eyebrow">System walkthrough</p>
+
           <h3>Tracing a PlayLight AI request end to end</h3>
-          <p>A system walkthrough from the incoming NestJS request through PostgreSQL, retrieval, context assembly, the model boundary, persistence, and failure paths.</p>
-          <span className="metadata">NestJS · PostgreSQL · pgvector · Retrieval · LLM APIs</span>
+
+          <p>
+            A walkthrough of how a PlayLight request moves through the
+            backend: from the NestJS API into user-scoped data access,
+            retrieval and context assembly, through the model boundary,
+            and back into application state.
+          </p>
+
+          <span className="metadata">
+            NestJS · PostgreSQL · pgvector · Retrieval · LLM APIs
+          </span>
         </div>
-        <ol className="featured-flow" aria-label="PlayLight request flow">
-          {['Request', 'NestJS', 'Data', 'Retrieval', 'Context', 'LLM', 'Response'].map((node, index) => (
-            <li key={node} className={index === 1 || index === 5 ? 'is-boundary' : undefined}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
+
+        <ol
+          className="featured-flow"
+          aria-label="PlayLight request flow"
+        >
+          {[
+            "Request",
+            "NestJS",
+            "User Data",
+            "Retrieval",
+            "Context",
+            "Model",
+            "Response",
+          ].map((node, index) => (
+            <li
+              key={node}
+              className={
+                index === 1 || index === 5
+                  ? "is-boundary"
+                  : undefined
+              }
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
               <b>{node}</b>
             </li>
           ))}
@@ -71,16 +159,35 @@ export function EngineeringThinkingSection() {
       </article>
 
       <div className="artifact-grid">
-        {artifacts.map((artifact, index) => (
-          <article className="artifact-card" data-reveal key={artifact.title}>
+        {investigations.map((investigation, index) => (
+          <article
+            className="artifact-card"
+            data-reveal
+            key={investigation.title}
+          >
             <div className="artifact-card-top">
-              <p className="eyebrow">{artifact.category}</p>
-              <span className="artifact-index">{String(index + 1).padStart(2, '0')}</span>
+              <p className="eyebrow">{investigation.category}</p>
+
+              <span className="artifact-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
             </div>
-            <h3>{artifact.title}</h3>
-            <p>{artifact.summary}</p>
-            <ArtifactVisual type={artifact.visual} />
-            <span className="metadata">{artifact.topics}</span>
+
+            <h3>{investigation.title}</h3>
+
+            <p>{investigation.summary}</p>
+
+            <ArtifactVisual type={investigation.visual} />
+
+            <div className="artifact-meta">
+              <span className="metadata">
+                {investigation.topics}
+              </span>
+
+              <span className="metadata">
+                {investigation.status}
+              </span>
+            </div>
           </article>
         ))}
       </div>
