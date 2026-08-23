@@ -995,7 +995,7 @@ h3 {
   max-width: 720px;
 }
 .rasterex-stage {
-  height: calc(6 * (100svh - 76px));
+  height: calc(4 * (100svh - 76px));
   position: relative;
 }
 .rasterex-scene {
@@ -1176,18 +1176,85 @@ h3 {
 .rasterex-mobile-stages {
   display: none;
 }
-.rasterex-metadata {
+.rasterex-work,
+.rasterex-impact {
   border-top: 1px solid var(--border);
-  color: var(--subtle);
-  display: flex;
-  flex-wrap: wrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.67rem;
-  gap: 10px 20px;
-  padding-top: 18px;
-  text-transform: uppercase;
+  display: grid;
+  gap: 56px;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  margin-top: 84px;
+  padding-top: 28px;
 }
-
+.rasterex-impact {
+  margin-top: 56px;
+}
+.rasterex-subheading h3 {
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  max-width: 360px;
+}
+.rasterex-work-grid {
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.rasterex-work-item {
+  border-bottom: 1px solid var(--border);
+  min-height: 196px;
+  padding: 20px 22px 24px 0;
+}
+.rasterex-work-item:nth-child(odd) {
+  border-right: 1px solid var(--border);
+  padding-right: 24px;
+}
+.rasterex-work-item:nth-child(even) {
+  padding-left: 24px;
+}
+.rasterex-work-number {
+  color: var(--accent);
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  margin-bottom: 28px;
+}
+.rasterex-work-item h4 {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 9px;
+}
+.rasterex-work-item p,
+.rasterex-impact-list {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.rasterex-impact-list {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rasterex-impact-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 17px 24px;
+  position: relative;
+}
+.rasterex-impact-list li + li {
+  padding-top: 17px;
+}
+.rasterex-impact-list li::before {
+  background: var(--accent);
+  border-radius: 50%;
+  content: "";
+  height: 4px;
+  left: 4px;
+  position: absolute;
+  top: 0.7em;
+  width: 4px;
+}
 /* PlayLight: zero-to-one product ownership expressed as a progressive data-flow system. */
 .playlight-section {
   display: block;
@@ -2565,6 +2632,20 @@ h3 {
     min-height: 230px;
     padding-top: 18px;
   }
+  .rasterex-work,
+  .rasterex-impact {
+    display: block;
+    margin-top: 56px;
+  }
+  .rasterex-subheading h3 {
+    max-width: 520px;
+  }
+  .rasterex-work-grid {
+    margin-top: 34px;
+  }
+  .rasterex-impact-list {
+    margin-top: 34px;
+  }
   .playlight-intro {
     display: block;
     margin-bottom: 48px;
@@ -2791,6 +2872,22 @@ h3 {
   }
   .rasterex-visual {
     min-height: 360px;
+  }
+  .rasterex-work-grid {
+    display: block;
+  }
+  .rasterex-work-item,
+  .rasterex-work-item:nth-child(odd),
+  .rasterex-work-item:nth-child(even) {
+    border-right: 0;
+    min-height: 0;
+    padding: 20px 0 22px;
+  }
+  .rasterex-work-item:first-child {
+    border-top: 0;
+  }
+  .rasterex-work-number {
+    margin-bottom: 20px;
   }
   .playlight-product {
     font-size: 0.64rem;
