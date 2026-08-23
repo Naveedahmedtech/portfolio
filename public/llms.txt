@@ -1,0 +1,32 @@
+# Naveed Ahmed
+
+> Backend / Product Engineer building production APIs, SDKs, integrations, developer platforms, and AI-enabled backend systems.
+
+Naveed Ahmed is a software engineer based in Islamabad, Pakistan. His work focuses on Node.js, TypeScript, NestJS, PostgreSQL, Redis, asynchronous processing, SDK engineering, API integrations, production systems, and AI backend architecture.
+
+## Selected Work
+
+- [What I Build](https://naveedahmed.ai/#focus): Backend systems, developer platforms and SDKs, integrations, and AI-enabled backend systems, including Redis, BullMQ, and RabbitMQ-backed asynchronous work.
+- [Rasterex](https://naveedahmed.ai/#work): Production SDK and integration engineering involving @rasterex/viewer, framework-independent integrations, iframe/PostMessage communication, developer documentation, and customer integration work for deployments across 50+ countries.
+- [PlayLight](https://naveedahmed.ai/#playlight): Zero-to-one personalized AI backend architecture using NestJS, PostgreSQL, pgvector, embeddings, retrieval, persistent user context, and LLM APIs.
+
+## Experience
+
+- [Engineering Experience](https://naveedahmed.ai/#experience): Professional history spanning backend APIs, payments, scheduling integrations, SDKs, developer platforms, and AI-enabled products.
+
+## Engineering Thinking
+
+- [Engineering Thinking](https://naveedahmed.ai/#thinking): Technical investigations around Node.js, PostgreSQL, backend reliability, system design, retrieval systems, and performance.
+
+## About
+
+- [About Naveed](https://naveedahmed.ai/#about): Engineering background, technical direction, and approach to building and understanding software systems.
+
+## Contact
+
+- [Contact](https://naveedahmed.ai/#contact)
+- Email: [technaveedahmed@gmail.com](mailto:technaveedahmed@gmail.com)
+- [GitHub](https://github.com/Naveedahmedtech)
+- [LinkedIn](https://www.linkedin.com/in/naveed-dev)
+- [Download résumé](https://naveedahmed.ai/resume.pdf)
+- Availability: Open to remote, international opportunities, and relocation.

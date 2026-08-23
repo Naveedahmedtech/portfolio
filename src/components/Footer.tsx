@@ -1,139 +1,49 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaGithub, FaLinkedin, FaTwitter, FaArrowUp } from "react-icons/fa";
-import { GITHUB_URL, LINKEDIN_URL } from "../constants";
-import MagneticWrapper from "./motion/MagneticWrapper";
+const navigation = [
+  ["Work", "#work"],
+  ["Experience", "#experience"],
+  ["Engineering", "#engineering"],
+  ["About", "#about"],
+  ["Contact", "#contact"],
+] as const;
 
-gsap.registerPlugin(ScrollTrigger);
+export function Footer() {
+  const year = new Date().getFullYear();
 
-const Footer: React.FC = () => {
-    const footerRef = useRef<HTMLElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
+  return (
+    <footer className="site-footer">
+      <div className="footer-main">
+        <div className="footer-identity">
+          <a className="footer-name" href="#top">Naveed Ahmed</a>
+          <p className="footer-role">Backend / Product Engineer</p>
+          <p className="footer-description">Building backend systems, developer platforms, integrations, and AI-enabled products.</p>
+        </div>
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+        <div className="footer-column">
+          <span className="metadata">Navigation</span>
+          <nav aria-label="Footer navigation">
+            {navigation.map(([label, href]) => <a href={href} key={label}>{label}</a>)}
+          </nav>
+        </div>
 
-    useLayoutEffect(() => {
-        const footer = footerRef.current;
-        const content = contentRef.current;
-        if (!footer || !content) return;
+        <div className="footer-column">
+          <span className="metadata">Elsewhere</span>
+          <div className="footer-links">
+            <a href="https://github.com/Naveedahmedtech" rel="noreferrer" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
+            <a href="https://www.linkedin.com/in/naveed-dev" rel="noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a href="mailto:technaveedahmed@gmail.com">Email <span aria-hidden="true">↗</span></a>
+            <a href="/resume.pdf" download type="application/pdf">Download résumé <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
 
-        const ctx = gsap.context(() => {
-            const items = content.children;
+      <div className="footer-status">
+        <span className="availability"><i aria-hidden="true" /> Open to remote, international opportunities, and relocation</span>
+      </div>
 
-            gsap.fromTo(items,
-                { y: 40, opacity: 0, scale: 0.98 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 1.2,
-                    stagger: 0.15,
-                    ease: "power4.out",
-                    scrollTrigger: {
-                        trigger: footer,
-                        start: "top 95%",
-                        toggleActions: "play none none none",
-                    }
-                }
-            );
-
-            // Atmospheric Pulse
-            gsap.to(".footer-glow", {
-                opacity: 0.3,
-                scale: 1.2,
-                duration: 4,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
-        }, footer);
-
-        return () => ctx.revert();
-    }, []);
-
-    return (
-        <footer
-            ref={footerRef}
-            className="relative z-10 bg-black py-24 px-6 lg:px-16 border-t border-primary/10 overflow-hidden"
-        >
-            {/* Premium Atmospheric Depth */}
-            <div className="footer-glow absolute -bottom-20 left-1/2 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-accent/5 blur-[120px] opacity-0" />
-
-            <div ref={contentRef} className="mx-auto max-w-7xl relative z-10">
-                <div className="flex flex-col items-center justify-between gap-16 lg:flex-row">
-
-                    {/* Logo / Brand */}
-                    <div className="flex flex-col items-center lg:items-start">
-                        <MagneticWrapper range={50} sensitivity={0.3}>
-                            <h2 className="font-display text-4xl tracking-tighter text-textPrimary">
-                                Naveed <span className="text-secondary">Ahmed.</span>
-                            </h2>
-                        </MagneticWrapper>
-                        <p className="mt-4 text-[0.7rem] font-bold uppercase tracking-[0.6em] text-textSecondary/20">
-                            Architecting Orchestrated Excellence
-                        </p>
-                    </div>
-
-                    {/* Social Narrative Slots */}
-                    <div className="flex items-center gap-12">
-                        {[
-                            { icon: FaGithub, href: GITHUB_URL, label: "Neural Network" },
-                            { icon: FaLinkedin, href: LINKEDIN_URL, label: "Strategy" },
-                            { icon: FaTwitter, href: "https://twitter.com", label: "Broadcast" }
-                        ].map((social) => (
-                            <MagneticWrapper key={social.href} range={40} sensitivity={0.4}>
-                                <a
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative flex flex-col items-center gap-3 transition-all"
-                                >
-                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/10 bg-white/[0.02] transition-all group-hover:bg-accent group-hover:text-black hover:-translate-y-2">
-                                        <social.icon className="text-2xl" />
-                                    </div>
-                                    <span className="text-[0.55rem] font-bold uppercase tracking-[0.3em] text-textSecondary/0 transition-all group-hover:text-textSecondary/40 group-hover:translate-y-1">
-                                        {social.label}
-                                    </span>
-                                </a>
-                            </MagneticWrapper>
-                        ))}
-                    </div>
-
-                    {/* Status / Location */}
-                    <div className="flex flex-col items-center lg:items-end">
-                        <div className="flex items-center gap-3 rounded-full border border-primary/10 bg-white/[0.03] px-5 py-2 backdrop-blur-md">
-                            <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
-                            <span className="text-[0.6rem] font-bold uppercase tracking-[0.4em] text-textSecondary/80">
-                                Orbital: Pakistan
-                            </span>
-                        </div>
-                        <p className="mt-4 text-[0.65rem] text-textSecondary/20 italic tracking-wider">
-                            Ready for Global Architecture Alignment
-                        </p>
-                    </div>
-
-                </div>
-
-                <div className="mt-20 flex flex-col items-center justify-between gap-8 border-t border-primary/10 pt-12 lg:flex-row">
-                    <p className="text-[0.6rem] uppercase tracking-[0.3em] text-textSecondary/20 font-medium">
-                        &copy; {new Date().getFullYear()} — Engineered with discipline. High-Fidelity Execution.
-                    </p>
-
-                    <MagneticWrapper range={50} sensitivity={0.5}>
-                        <button
-                            onClick={scrollToTop}
-                            className="group flex items-center gap-4 text-[0.7rem] font-bold uppercase tracking-[0.5em] text-accent/40 transition-all hover:text-accent hover:scale-105"
-                        >
-                            System Return <FaArrowUp className="transition-transform group-hover:-translate-y-2" />
-                        </button>
-                    </MagneticWrapper>
-                </div>
-            </div>
-        </footer>
-    );
-};
-
-export default Footer;
+      <div className="footer-bottom">
+        <span>© {year} Naveed Ahmed</span>
+        <span>Islamabad, Pakistan</span>
+      </div>
+    </footer>
+  );
+}

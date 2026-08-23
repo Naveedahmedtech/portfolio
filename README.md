@@ -1,50 +1,80 @@
-# React + TypeScript + Vite
+# naveedahmed.ai
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for Naveed Ahmed, a Backend / Product Engineer. The site presents production engineering work, product architecture, backend systems, integrations, and AI infrastructure.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Next.js 16 with the App Router
+- React 19
+- TypeScript with strict mode enabled
+- CSS in `src/app/globals.css`
+- Server-first components with client components only where browser interaction is required
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Requirements: Node.js and npm.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Open [http://localhost:3000](http://localhost:3000) in a browser.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Available commands
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run dev        # Start the development server
+npm run lint       # Run ESLint
+npm run typecheck  # Run TypeScript without emitting files
+npm run build      # Create a production build
+npm start          # Serve the production build
 ```
+
+There is currently no automated test script configured in `package.json`.
+
+## Project structure
+
+```text
+src/
+  app/                         Next.js routes, layout, metadata, and global CSS
+  components/                  Shared UI components and motion layer
+  features/
+    about/                     About section
+    contact/                   Contact section
+    experience/                Career timeline
+    focus/                     Engineering focus section
+    playlight/                 PlayLight case study
+    rasterex/                  Rasterex case study
+    thinking/                  Engineering principles
+  config/                      Site configuration
+public/                        Static assets, resume, and crawler-facing content
+docs/                          Section and design documentation
+```
+
+## Rasterex case study
+
+The Rasterex section documents work on a customer-facing integration and delivery architecture for an on-premise technical drawing/document viewer.
+
+The story covers:
+
+- separating customer application code from the compiled Canvas deployment
+- keeping the Canvas on the customer’s server while exposing a `postMessage` / SDK integration boundary
+- a unified EXE installer that orchestrates the required MSI packages and IIS setup
+- an npm package and sandbox Canvas for evaluation without first installing the full Windows Server stack
+- customer deployment support, integration debugging, documentation, and feedback loops
+
+The section intentionally avoids unverifiable metrics, customer names, testimonials, and invented API names.
+
+## Content and design documentation
+
+The `docs/` directory contains the working documentation for the site’s sections, design language, motion behavior, SEO, and content decisions. Keep those documents aligned with meaningful changes to the corresponding feature.
+
+## Engineering conventions
+
+- Prefer Server Components and keep client-side JavaScript focused on real interaction.
+- Keep feature-specific code inside its feature directory.
+- Validate external input at server boundaries.
+- Preserve strong TypeScript types and avoid `any`.
+- Keep business and data logic out of JSX where it becomes non-trivial.
+- Make focused changes and run lint, typecheck, and build checks before completion.
